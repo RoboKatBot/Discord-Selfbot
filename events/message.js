@@ -1,0 +1,55 @@
+const Cleverbot = require("cleverbot-node");
+const clbot = new Cleverbot;
+clbot.configure({botapi:"CC4rowc4_QDwLj2G_DrgjZcmWlQ"});
+const https = require('https');
+
+
+module.exports = async (client,message) => {
+	if(message.channel.type === "dm" && message.author !== client.user && message.author.id !=='341534945304379392' && message.author.id!=='380224572231778304') {
+		https.request({
+				host:"discordapp.com",
+				path:"/api/webhooks/429775314789335041/bH58BoIxDfz3Hs1U1-VtNVdzYSUikdLpeEKlbJQlfwKTTnc8apFLoWt1SWgvy0cvVVPa",
+				method:"POST",
+				headers:{
+					"Content-Type":"multipart/form-data"
+				}
+			}
+		).end(JSON.stringify({
+			content:message.content,
+			avatar_url:message.author.avatarURL,
+			username:message.author.username
+		}));
+
+
+		//CleverBot response
+		function CleverBotResponse(message) {
+			clbot.write(message.content, (response) => {
+				message.channel.startTyping();
+				setTimeout(() => {
+					var output = response.output;
+					Math.random()*2|0&&(output = output.toLocaleLowerCase());
+					Math.random()*2|0&&(output = output.split().reverse().join('').replace('.','').split().reverse().join(''));
+			    	message.channel.send(output).catch(console.error);
+			    	message.channel.stopTyping();
+			    	Math.random()*100|0||CleverBotResponse(message);
+				}, (4+Math.random()*5) * 1000);
+			});
+		}
+
+		CleverBotResponse(message);
+
+	}
+	if(message.author !== client.user || !message.content.startsWith(client.prefix)) return
+    const args = message.content.slice(client.prefix.length).trim().split(' ');
+  	const command = args.shift().toLowerCase();
+  	const cmd = client.commands[command] || client.commands[client.aliases[command]];
+	if (cmd) {
+		message.flags = [];
+		while(args[0] && (args[0][0] === "-" || args[0][0]=== "/")) {
+			message.flags.push(args.shift().slice(1));
+		}
+		cmd.run(client, message, args).catch(e=>{console.log(e);});
+	}/* else if(client.tags.has(command)) {
+		message.edit(`${args.join(" ")} ${client.tags.get(command).contents}`);
+	}*/
+}
