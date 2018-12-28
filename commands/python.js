@@ -1,7 +1,5 @@
-const {exec} = require('child_process');
-
 exports.run = async (client,message,args)=>{
-	exec(`${args.join(' ')}`,(error,stdout,stderr)=>{
+	exec(`python -c ${args.join(' ')}`,(error,stdout,stderr)=>{
 		message.channel.send(`Output: ${error||stdout||stderr}`);
 	})
 }
@@ -11,13 +9,12 @@ exports.init = (client)=>{
 }
 
 exports.conf = {
-	aliases:['pi']
+	aliases:[]
 }
 
 exports.help = {
-	name:"bash",
-	desc:"e",
-	usage:"bash <bash command>",
+	name:"python",
+	desc:"Executes command in python",
+	usage:"python <python code>",
 	extended:""
 }
-
