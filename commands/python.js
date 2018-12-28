@@ -1,3 +1,5 @@
+const {exec} = require('child_process');
+
 exports.run = async (client,message,args)=>{
 	exec(`python << EOPYTHON\n${args.join(' ')}\nEOPYTHON`,(error,stdout,stderr)=>{
 		message.channel.send(`Output: ${error||stdout||stderr}`);
