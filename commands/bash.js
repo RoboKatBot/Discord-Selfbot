@@ -11,7 +11,7 @@ exports.init = (client)=>{
 }
 
 exports.conf = {
-	aliases:[]
+	aliases:['pi']
 }
 
 exports.help = {
