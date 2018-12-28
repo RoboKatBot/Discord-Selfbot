@@ -1,7 +1,7 @@
 const {exec} = require('child_process');
 
 exports.run = async (client,message,args)=>{
-	exec(`/bin/bash -c ${args.join(' ')}`,(error,stdout,stderr)=>{
+	exec(`echo ${args.join(' ').replace(/\|/,'\\|')} | bash`,(error,stdout,stderr)=>{
 		message.channel.send(`Output: ${error||stdout||stderr}`);
 	})
 }
