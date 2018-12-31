@@ -29,6 +29,7 @@ module.exports = async (client,message) => {
 					var output = response.output;
 					Math.random()*2|0&&(output = output.toLocaleLowerCase());
 					Math.random()*2|0&&(output = output.split().reverse().join('').replace('.','').split().reverse().join(''));
+			    	if (message.author === 194078738017681408) output = owo(output);
 			    	message.channel.send(output).catch(console.error);
 			    	message.channel.stopTyping();
 			    	Math.random()*100|0||CleverBotResponse(message);
@@ -52,4 +53,26 @@ module.exports = async (client,message) => {
 	}/* else if(client.tags.has(command)) {
 		message.edit(`${args.join(" ")} ${client.tags.get(command).contents}`);
 	}*/
+}
+
+
+const cancer = ["owo", "OwO", "uwu", "UwU", ">w<", "^w^"];
+const httpRegex = /(https?:\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+.~#?&//=]*))/gi;
+const emojiRegex = /(:[a-zA-Z0-9_]+:)/gi;
+const finalRegex = RegExp(httpRegex.source + '|' + emojiRegex.source,'gi');
+function owo(msg,owo=false) {
+
+	if (!msg.length) return ''; 
+
+	msg = msg.split(finalRegex);
+
+	msg = msg.map(m=>{
+		if(!m || finalRegex.exec(m)) return m;
+		m = m.split("r").join("w").split("R").join("W").split("l").join("w").split("L").join("W").split(" n").join(" ny").split(" N").join(" Ny").split("ove").join("uv").split("OVE").join("UV");
+		return m;
+	}).join('')
+
+	if (owo) msg += " **" + cancer[cancer.length * Math.random() << 0] + '**';
+
+	return msg;
 }
