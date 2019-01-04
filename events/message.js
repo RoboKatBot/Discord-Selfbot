@@ -29,7 +29,7 @@ module.exports = async (client,message) => {
 					var output = response.output;
 					Math.random()*2|0&&(output = output.toLocaleLowerCase());
 					Math.random()*2|0&&(output = output.split().reverse().join('').replace('.','').split().reverse().join(''));
-			    	if (message.author === 194078738017681408) output = owo(output);
+			    	if (message.author.id === 194078738017681408) output = owo(output);
 			    	message.channel.send(output).catch(console.error);
 			    	message.channel.stopTyping();
 			    	Math.random()*100|0||CleverBotResponse(message);
