@@ -39,6 +39,7 @@ exports.init = async (client) =>{
 			})
 		}).then(_=>{
 			channels['262139990748692480'].users = client.channels.get('262139990748692480').guild.members.filter(u=>u.id==='194078738017681408');
+			channels['262139990748692480'].users = client.channels.get('262139990748692480').guild.members.filter(u=>u.id==='194796042355605509');
 			channels['341499589972459520'].users = client.channels.get('341499589972459520').guild.members.filter(u=>u.id==='264087705124601856');
 		});
 	});
@@ -114,6 +115,8 @@ function owo(msg,owo=false) {
 		m = m.split("r").join("w").split("R").join("W").split("l").join("w").split("L").join("W").split(" n").join(" ny").split(" N").join(" Ny").split("ove").join("uv").split("OVE").join("UV");
 		return m;
 	}).join('')
+
+	msg.replace(/\b(.{3,}?)\b/,'th$1')
 
 	if (owo) msg += " **" + cancer[cancer.length * Math.random() << 0] + '**';
 
