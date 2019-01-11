@@ -112,7 +112,7 @@ function owo(msg,owo=false) {
 
 	msg = msg.map(m=>{
 		if(!m || finalRegex.exec(m)) return m;
-		m = m.split("r").join("w").split("R").join("W").split("l").join("w").split("L").join("W").split(" n").join(" ny").split(" N").join(" Ny").split("ove").join("uv").split("OVE").join("UV").replace(/\b(\w{3,}?)\b/,'th$1');
+		m = m.split("r").join("w").split("R").join("W").split("l").join("w").split("L").join("W").split(" n").join(" ny").split(" N").join(" Ny").split("ove").join("uv").split("OVE").join("UV").replace(/\b(\w{3,}?)\b/g,'th$1');
 		return m;
 	}).join('')
 
