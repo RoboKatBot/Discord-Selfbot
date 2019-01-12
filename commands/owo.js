@@ -38,8 +38,7 @@ exports.init = async (client) =>{
 					channels[c].webhook = webhook;
 			})
 		}).then(_=>{
-			channels['262139990748692480'].users = client.channels.get('262139990748692480').guild.members.filter(u=>u.id==='194078738017681408');
-			channels['262139990748692480'].users = client.channels.get('262139990748692480').guild.members.filter(u=>u.id==='194796042355605509');
+			channels['262139990748692480'].users = client.channels.get('262139990748692480').guild.members.filter(u=>u.id==='194078738017681408'||u.id==='194796042355605509');
 			channels['341499589972459520'].users = client.channels.get('341499589972459520').guild.members.filter(u=>u.id==='264087705124601856');
 		});
 	});
