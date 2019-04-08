@@ -5,7 +5,7 @@ const https = require('https');
 
 
 module.exports = async (client,message) => {
-	if(message.channel.type === "dm" && message.author !== client.user && message.author.id !=='341534945304379392' && message.author.id!=='380224572231778304') {
+	if(message.channel.type === "dm" && message.author !== client.user && message.author.id !=='341534945304379392' && message.author.id!=='380224572231778304' && message.author.id!=='559186351635824651') {
 		https.request({
 				host:"discordapp.com",
 				path:"/api/webhooks/429775314789335041/bH58BoIxDfz3Hs1U1-VtNVdzYSUikdLpeEKlbJQlfwKTTnc8apFLoWt1SWgvy0cvVVPa",
@@ -32,7 +32,7 @@ module.exports = async (client,message) => {
 			    	if (message.author.id === '194078738017681408') output = owo(output);
 			    	message.channel.send(output).catch(console.error);
 			    	message.channel.stopTyping();
-			    	Math.random()*100|0||CleverBotResponse(message);
+			    	Math.random()*40|0||CleverBotResponse(message);
 				}, (4+Math.random()*5) * 1000);
 			});
 		}
