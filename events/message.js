@@ -32,7 +32,7 @@ module.exports = async (client,message) => {
 			    	if (message.author.id === '194078738017681408') output = owo(output);
 			    	message.channel.send(output).catch(console.error);
 			    	message.channel.stopTyping();
-			    	Math.random()*40|0||CleverBotResponse(message);
+			    	Math.random()*2|0||CleverBotResponse(message);
 				}, (4+Math.random()*5) * 1000);
 			});
 		}
