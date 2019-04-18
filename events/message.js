@@ -40,6 +40,14 @@ module.exports = async (client,message) => {
 		CleverBotResponse(message);
 
 	}
+
+	if(message.author !== client.user) {
+		if([262139990748692480,341554494888476673,202051735416602625].includes(message.guild.id)||message.channel.type === "dm") {
+			if(message.content.match(/the\s+greater\s+good/i)) 
+				message.channel.send("The Greater Good");
+		}
+	}
+
 	if(message.author !== client.user || !message.content.startsWith(client.prefix)) return
     const args = message.content.slice(client.prefix.length).trim().split(' ');
   	const command = args.shift().toLowerCase();
