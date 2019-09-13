@@ -53,7 +53,7 @@ exports.init = async (client) =>{
 
 		const user = channel.users.get(m.author.id);
 		
-		channel.webhook.send(owo(m.content,1),{
+		channel.webhook && channel.webhook.send(owo(m.content,1),{
 			avatarURL:user.user.avatarURL,
 			username:owo(user.displayName),
 			files: [...m.attachments.values()].map(k=>k.url),
