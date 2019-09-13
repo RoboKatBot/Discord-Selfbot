@@ -5,7 +5,8 @@ exports.run = async (client,message,args)=>{
 	if(!proc) {
 		proc = spawn("wolfram");
 		proc.stdout.on('data',(data)=>{
-			message.channel.send(`\`\`\`Mathematica\n${data}\`\`\``);
+			data = data.replace(/In\[\d+\]\:= \n/,"");
+			data && message.channel.send(`\`\`\`Mathematica\n${data}\`\`\``);
 		});
 	}
 	proc.stdin.write(args.join(' ').trim()+'\n');
