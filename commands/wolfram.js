@@ -5,7 +5,8 @@ exports.run = async (client,message,args)=>{
 	if(!proc) {
 		proc = spawn("wolfram");
 		proc.stdout.on('data',(data)=>{
-			data = String(data).trim().replace(/In\[\d+\]\:= /,"").replace(/Wolfram Language [\d\.]+ Engine for Linux ARM (32-bit)\nCopyright 1988-\d+ Wolfram Research, Inc\./,"");
+			data = String(data).trim().replace(/In\[\d+\]\:=/,"").replace(`Wolfram Language 11.3.0 Engine for Linux ARM (32-bit)
+Copyright 1988-2018 Wolfram Research, Inc.`,"");
 			console.log(data);
 			data && message.channel.send(`\`\`\`Mathematica\n${data}\`\`\``);
 		});
