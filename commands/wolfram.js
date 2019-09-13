@@ -7,9 +7,10 @@ exports.run = async (client,message,args)=>{
 		proc.stdout.on('data',(data)=>{
 			data = String(data).trim().replace(/In\[\d+\]\:=/,"").replace(`Wolfram Language 11.3.0 Engine for Linux ARM (32-bit)
 Copyright 1988-2018 Wolfram Research, Inc.`,"");
-			data || return;
-			data = data.split(/\n.{0,1980}\n/g);
-			data.forEach(k=>message.channel.send(`\`\`\`Mathematica\n${k}\`\`\``));
+			if (data) {
+				data = data.split(/\n.{0,1980}\n/g);
+				data.forEach(k=>message.channel.send(`\`\`\`Mathematica\n${k}\`\`\``));
+			}
 		});
 	}
 	proc.stdin.write(args.join(' ').trim()+'\n');
