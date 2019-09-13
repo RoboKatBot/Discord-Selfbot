@@ -3,7 +3,7 @@ var proc;
 
 exports.run = async (client,message,args)=>{
 	if(!proc) {
-		proc = spawn("Wolfram");
+		proc = spawn("wolfram");
 		proc.stdout.on('data',(data)=>{
 			message.channel.send(`\`\`\`Mathematica\n${data}\`\`\``);
 		});
