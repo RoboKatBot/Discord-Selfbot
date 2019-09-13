@@ -16,7 +16,7 @@ exports.init = (client)=>{
 }
 
 exports.conf = {
-	aliases:[mathematica, math, maths]
+	aliases:["mathematica", "math", "maths"]
 }
 
 exports.help = {
