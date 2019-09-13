@@ -8,7 +8,7 @@ exports.run = async (client,message,args)=>{
 			message.channel.send(`\`\`\`Mathematica\n${data}\`\`\``);
 		});
 	}
-	proc.write(args.join(' ').trim()+'\n');
+	proc.stdin.write(args.join(' ').trim()+'\n');
 }
 
 exports.init = (client)=>{
