@@ -8,7 +8,7 @@ exports.run = async (client,message,args)=>{
 			data = String(data).trim().replace(/In\[\d+\]\:=/,"").replace(`Wolfram Language 11.3.0 Engine for Linux ARM (32-bit)
 Copyright 1988-2018 Wolfram Research, Inc.`,"");
 			if (data) {
-				data = data.match(/\n?.{0,1980}\n?/g);
+				data = data.match(/[\s\S]{1,1950}(?=\n)/g);
 				data.forEach(k=>message.channel.send(`\`\`\`Mathematica\n${k}\`\`\``));
 			}
 		});
