@@ -7,7 +7,7 @@ exports.run = async (client,message,args)=>{
 		proc.stdout.on('data',(data)=>{
 			data = String(data).trim().replace(/In\[\d+\]\:=/,"").replace(`Wolfram Language 11.3.0 Engine for Linux ARM (32-bit)
 Copyright 1988-2018 Wolfram Research, Inc.`,"");
-			data && message.channel.send(`\`\`\`Mathematica\n${data}\`\`\``);
+			data && message.channel.send(`\`\`\`Mathematica\n${data}\`\`\``,{split:true});
 		});
 	}
 	proc.stdin.write(args.join(' ').trim()+'\n');
