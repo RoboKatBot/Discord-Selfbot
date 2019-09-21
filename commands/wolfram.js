@@ -1,4 +1,5 @@
 const {spawn} = require('child_process');
+const {watch} = require('fs');
 var proc;
 
 exports.run = async (client,message,args)=>{
@@ -9,7 +10,12 @@ exports.run = async (client,message,args)=>{
 Copyright 1988-2018 Wolfram Research, Inc.`,"");
 			if (data) {
 				if (a = data.match(/(Out\[\d+\]=) -Graphics-/)) {
-					message.channel.send(`\`\`\`Mathematica\n${a[0]}\`\`\``,{files:["/tmp/out.png"]})
+					w = watch('/tmp',(e,file)=>{
+						if (file==="out.png") {
+							message.channel.send(`\`\`\`Mathematica\n${a[0]}\`\`\``,{files:["/tmp/out.png"]});
+							w.close();
+						}
+					})
 					return
 				}
 				data = data.match(/[\s\S]{1,1950}(?=\n|$)/g);
