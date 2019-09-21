@@ -12,7 +12,7 @@ Copyright 1988-2018 Wolfram Research, Inc.`,"");
 				let a;
 				if (a = data.match(/(Out\[\d+\]=) -Graphics-/)) {
 					w = watch('/tmp/out.png').on('change',(path,details)=>{
-						if (!details.size) {
+						if (details.size) {
 							message.channel.send(`\`\`\`Mathematica\n${a[0]}\`\`\``,{files:["/tmp/out.png"]});
 							w.close();
 						}
