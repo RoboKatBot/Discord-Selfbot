@@ -9,6 +9,7 @@ exports.run = async (client,message,args)=>{
 			data = String(data).trim().replace(/In\[\d+\]\:=/,"").replace(`Wolfram Language 11.3.0 Engine for Linux ARM (32-bit)
 Copyright 1988-2018 Wolfram Research, Inc.`,"");
 			if (data) {
+				let a;
 				if (a = data.match(/(Out\[\d+\]=) -Graphics-/)) {
 					w = watch('/tmp/out.png').on('change',(path,details)=>{
 						if (!details.size) {
