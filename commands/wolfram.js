@@ -1,5 +1,5 @@
 const {spawn} = require('child_process');
-const {watch} = require('fs');
+const {watch} = require('chokidar');
 var proc;
 
 exports.run = async (client,message,args)=>{
@@ -10,11 +10,9 @@ exports.run = async (client,message,args)=>{
 Copyright 1988-2018 Wolfram Research, Inc.`,"");
 			if (data) {
 				if (a = data.match(/(Out\[\d+\]=) -Graphics-/)) {
-					w = watch('/tmp',(e,file)=>{
-						if (file==="out.png") {
-							message.channel.send(`\`\`\`Mathematica\n${a[0]}\`\`\``,{files:["/tmp/out.png"]});
-							w.close();
-						}
+					w = watch('/tmp/out.png').on('change',(path)=>{
+						message.channel.send(`\`\`\`Mathematica\n${a[0]}\`\`\``,{files:["/tmp/out.png"]});
+						w.close();
 					})
 					return
 				}
