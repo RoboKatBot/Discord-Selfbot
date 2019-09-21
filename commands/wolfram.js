@@ -10,7 +10,8 @@ exports.run = async (client,message,args)=>{
 Copyright 1988-2018 Wolfram Research, Inc.`,"");
 			if (data) {
 				if (a = data.match(/(Out\[\d+\]=) -Graphics-/)) {
-					w = watch('/tmp/out.png').on('change',(path)=>{
+					w = watch('/tmp/out.png').on('change',(path,details)=>{
+						details.size || return;
 						message.channel.send(`\`\`\`Mathematica\n${a[0]}\`\`\``,{files:["/tmp/out.png"]});
 						w.close();
 					})
