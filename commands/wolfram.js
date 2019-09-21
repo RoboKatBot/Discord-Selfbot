@@ -14,10 +14,11 @@ Copyright 1988-2018 Wolfram Research, Inc.`,"");
 						message.channel.send(`\`\`\`Mathematica\n${a[0]}\`\`\``,{files:["/tmp/out.png"]});
 						w.close();
 					})
-					return
 				}
-				data = data.match(/[\s\S]{1,1950}(?=\n|$)/g);
-				data.forEach(k=>message.channel.send(`\`\`\`Mathematica\n${k}\`\`\``));
+				else {
+					data = data.match(/[\s\S]{1,1950}(?=\n|$)/g);
+					data.forEach(k=>message.channel.send(`\`\`\`Mathematica\n${k}\`\`\``));
+				}
 			}
 		});
 	}
