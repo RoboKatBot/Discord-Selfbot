@@ -9,7 +9,7 @@ exports.run = async (client,message,args)=>{
 Copyright 1988-2018 Wolfram Research, Inc.`,"");
 			if (data) {
 				if (a = data.match(/(Out\[\d+\]=) -Graphics-/)) {
-					message.channel.send(`\`\`\`Mathematica\n${a[0]}\`\`\``,{files:[{name:"/tmp/out.png"}]})
+					message.channel.send(`\`\`\`Mathematica\n${a[0]}\`\`\``,{files:["/tmp/out.png"]})
 					return
 				}
 				data = data.match(/[\s\S]{1,1950}(?=\n|$)/g);
