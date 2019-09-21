@@ -17,11 +17,10 @@ Copyright 1988-2018 Wolfram Research, Inc.`,"");
 							w.close();
 						}
 					})
+					return;
 				}
-				else {
-					data = data.match(/[\s\S]{1,1950}(?=\n|$)/g);
-					data.forEach(k=>message.channel.send(`\`\`\`Mathematica\n${k}\`\`\``));
-				}
+				data = data.match(/[\s\S]{1,1950}(?=\n|$)/g);
+				data.forEach(k=>message.channel.send(`\`\`\`Mathematica\n${k}\`\`\``));
 			}
 		});
 	}
