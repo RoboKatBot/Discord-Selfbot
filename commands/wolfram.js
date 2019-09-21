@@ -4,7 +4,7 @@ var proc;
 
 exports.run = async (client,message,args)=>{
 	if(!proc) {
-		proc = spawn("wolfram", ["-initfile ~/.wolfram"]);
+		proc = spawn("wolfram", ["-initfile", "~/.wolfram"]);
 		proc.stdout.on('data',(data)=>{
 			data = String(data).trim().replace(/In\[\d+\]\:=/,"").replace(`Wolfram Language 11.3.0 Engine for Linux ARM (32-bit)
 Copyright 1988-2018 Wolfram Research, Inc.`,"");
