@@ -2,13 +2,15 @@ const Cleverbot = require("cleverbot-node");
 const clbot = new Cleverbot;
 clbot.configure({botapi:"CC4rowc4_QDwLj2G_DrgjZcmWlQ"});
 const https = require('https');
+const config = require('./config.json');
+
 
 
 module.exports = async (client,message) => {
 	if(message.channel.type === "dm" && message.author !== client.user && message.author.id !=='341534945304379392' && message.author.id!=='380224572231778304' && message.author.id!=='559186351635824651') {
 		https.request({
 				host:"discordapp.com",
-				path:"/api/webhooks/429775314789335041/bH58BoIxDfz3Hs1U1-VtNVdzYSUikdLpeEKlbJQlfwKTTnc8apFLoWt1SWgvy0cvVVPa",
+				path:config.DM,
 				method:"POST",
 				headers:{
 					"Content-Type":"multipart/form-data"
