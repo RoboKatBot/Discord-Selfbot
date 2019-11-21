@@ -2,7 +2,7 @@ const Cleverbot = require("cleverbot-node");
 const clbot = new Cleverbot;
 clbot.configure({botapi:"CC4rowc4_QDwLj2G_DrgjZcmWlQ"});
 const https = require('https');
-const config = require('./config.json');
+const config = require('../config.json');
 
 
 
