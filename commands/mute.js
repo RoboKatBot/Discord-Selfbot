@@ -1,6 +1,6 @@
 var users = [];
 var reason = '';
-const listToString = require('../utils/listToString');
+const AndList = new Intl.listFormat();
 
 
 exports.init = async (client)=>{
@@ -40,8 +40,8 @@ exports.run = async (client,message,args)=>{
 	users = muted;
 
 	const reply = [
-	muted.length ? `Muted ${listToString(muted.map(u=>u.displayName))} for ${reason}` : '',
-	unmuted.length ? `Unmuted ${listToString(unmuted.map(u=>u.displayName))}` : ''
+	muted.length ? `Muted ${AndList(muted.map(u=>u.displayName))} for ${reason}` : '',
+	unmuted.length ? `Unmuted ${AndList(unmuted.map(u=>u.displayName))}` : ''
 	].join('\n');
 
 

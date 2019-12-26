@@ -1,30 +1,155 @@
 const https = require('https');
-const listToString = require('../utils/listToString');
+const store = require('./owo.json');
+const fs = require('fs');
+const AndList = new Intl.ListFormat();
 
 
-const channels = {};
+const Webhooks = {};
+const channels = new Proxy(store, {
+	get: function(obj, id) {
+		if (!('_' + id) in obj) {
+			obj['_' + id] = [];
+		}
+		return obj['_' + id];
+	}
+});
+
+function addOWO(channelID,userIDs) {
+	let ret = [];
+	userIDs.forEach(user=>{
+		if (!channels[channelID].includes(user)) {
+			channels[channelID].push(user);
+			ret.push(user);
+		}
+	});
+	saveOWO();
+	return ret;
+}
+
+function removeOWO(channelID,userIDs) {
+	let ret = [];
+	userIDs.forEach(user=>{
+		var index = channels[channelID].lastIndexOf(user)
+		if (index!==-1) {
+			channels = channels.slice(0,index).concat(channels.slice(index+1))
+			ret.push(user);
+		}
+	});
+	save();
+	return ret;
+}
+
+
+
+function setOWO(channelID,userIDs) {
+	channels[channelID] = userIDs;
+	save();
+}
+
+function save() {
+	fs.writeFile('./owo.json',JSON.stringify(store));
+}
 
 exports.run = async (client,message,args)=>{
 	// if (message.guild.id!=='262139990748692480') return;
-	const regex = new RegExp(args.shift(),'i');
-	const channel = client.channels.get(args.shift()) || message.channel;
 
-	channels[channel.id].users = channel.guild.members.filter(u=>regex.exec(u.displayName)||regex.exec(u.user.username));
+	let op;
 
-	const reply = [
-	channels[channel.id].users.size ? `OWOified ${listToString(channels[channel.id].users.map(u=>u.displayName))}.\n~Enjoy your blessing~.` : `Cleared OWOspeak`
-	].join('/n')
+	if (op = args[0].toLowerCase().match(/add|remove|get|set/)[0]) {
+		args.shift()
+	}
+	else {
+		op = 'add'
+	}
 
-	message.appendReply(reply);
+	if (op == 'get') {
+		const channel = args[0] || message.channel;
+		const users = channels[channel.id];
+		message.appendReply(
+			users.length
+			? `Current OWO users for ${channel.name} ${users.length !== 1 ? 'are ' : 'is '} ${AndList(users)}.`
+			: `There is currently no OWO users for ${channel.name}.`
+		);
+		return;
+	}
+
+	const channel = client.channels.get(args[1]) || message.channel;
+	const regex = new RegExp(args[0],'i');
+	const users = channel.guild.members.filter(u=>regex.exec(u.displayName)||regex.exec(u.user.username));
+
+	if (!Webhooks[channel.id]) {
+		if (await getWebhooks(webhooks=>{
+			const webhook = webhooks.filter(webhook=>webhook.channelID===channel.id).first()
+			if (!webhook) {
+				message.channel.send(`Can't access webhook for ${channel.name} (${channel.id}).\nCancelling operation.`)
+				return 1;
+			}
+			Webhooks[channel.id] = webhook;
+		}))
+			return;
+	}
+
+
+	if (op == 'remove') {
+		const Δusers = removeOWO(channel.id,users);
+		message.appendReply(
+			`Removed OWO for ${AndList(Δusers)}.`
+		)
+		return;
+	}
+
+	if (op == 'set') {
+		setOWO(channel.id,users);
+		message.appendReply(
+			users.length
+			? `Set OWO to ${AndList(users)}.`
+			: `Set OWO to nobody.`
+		)
+		return;
+	}
+
+	if (op == 'add') { //Default to 'add'
+		const Δusers = addOWO(channel.id,users);
+		message.appendReply(
+			`Added OWO for ${users.length ? AndList(Δusers) : 'nobody'}.`
+		)
+	}	
+}
+
+async function getWebhooks(cb) {
+	const webhooks = client.guilds.map(guild=>
+		guild.fetchWebhooks().catch(_=>0)
+	);
+	await Promise.all(webhooks)
+	.then(webhooks=>webhooks.filter(k=>k)) // Remove any rejected fetches.
+	.then(cb);
 }
 
 exports.init = async (client) =>{
 	client.on('ready',()=>{
-		const webhooks = [...client.guilds.map(k=>
+
+		getWebhooks(webhooks=>{
+			channels.forEach(channel=>{
+				const webhook = webhooks.filter(webhook=>webhook.channelID===channel.id).first()
+				if (!webhook)
+					return console.error(`Cannot access webhook for channel: ${channel.name} (${channel.id})`);
+				Webhooks[channel.id] = webhook;
+			});
+		});
+
+
+		/*const webhooks = [...client.guilds.map(k=>
 			k.fetchWebhooks().catch(_=>0)
 		)];
 
 		Promise.all(webhooks).then(ws=>{
+			
+
+			client.channels.map(c=>{
+
+
+
+
 			ws = ws.filter(k=>k);
 			ws = ws.shift().concat(...ws);
 
@@ -37,10 +162,7 @@ exports.init = async (client) =>{
 				else
 					channels[c].webhook = webhook;
 			})
-		}).then(_=>{
-			channels['262139990748692480'].users = client.channels.get('262139990748692480').guild.members.filter(u=>u.id==='194078738017681408'||u.id==='194796042355605509');
-			channels['341499589972459520'].users = client.channels.get('341499589972459520').guild.members.filter(u=>u.id==='264087705124601856');
-		});
+		});*/
 	});
 
 
@@ -48,20 +170,18 @@ exports.init = async (client) =>{
 	client.on("message",(m)=>{
 		const channel = channels[m.channel.id];
 		// if (m.author.bot) return;
-		if (!channel || !channel.users || !channel.users.has(m.author.id)) return;
+		if (!channel || !channel.includes(m.author.id)) return;
 		if (m.author===client.user && m.content.startsWith('||')) return;
 
 		const user = channel.users.get(m.author.id);
 		
-		channel.webhook && channel.webhook.send(owo(m.content,1),{
+		Webhooks[n.channel.id].send(owo(m.content,1),{
 			avatarURL:user.user.avatarURL,
 			username:owo(user.displayName),
 			files: [...m.attachments.values()].map(k=>k.url),
 			embeds:m.embeds.map(k=>deep(k,[['author','name'],'description',['footer','text'],'title']))
 		}).then(_=>m.delete()).catch(e=>console.error('Error sending message from webhook: ',e));
-
 	})
-
 }
 
 function deep(obj,keys) {
@@ -86,7 +206,7 @@ exports.conf = {
 exports.help = {
 	name:"owo",
 	desc:"Turns all messages in channel for users to owo",
-	usage:"owo RegExp [channelID]",
+	usage:"owo [add|set|remove] RegExp [channelID]",
 	extended:""
 }
 
