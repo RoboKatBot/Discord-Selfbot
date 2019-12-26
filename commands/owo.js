@@ -118,8 +118,9 @@ async function getWebhooks(client,cb) {
 		guild.fetchWebhooks().catch(_=>0)
 	);
 	await Promise.all(webhooks)
-	.then(webhooks=>webhooks.filter(k=>k)) // Remove any rejected fetches.
-	.then(cb);
+		.then(webhooks=>webhooks.filter(k=>k) // Remove any rejected fetches.
+			.reduce((a,b)=>a.concat(b))
+		).then(cb);
 }
 
 exports.init = async (client) =>{
@@ -127,7 +128,7 @@ exports.init = async (client) =>{
 
 		getWebhooks(client,webhooks=>{
 			Object.keys(store).forEach(channelID=>{
-				const webhook = webhooks.filter(webhook=>webhook.channelID===channelID)[0]
+				const webhook = webhooks.filter(webhook=>webhook.channelID==channelID)[0]
 				if (!webhook)
 					return console.error(`Cannot access webhook for channel: ${channelID}`);
 				Webhooks[channel.id] = webhook;
