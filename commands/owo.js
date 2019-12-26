@@ -39,7 +39,7 @@ function setOWO(channelID,userIDs) {
 }
 
 function saveOWO() {
-	fs.writeFile('./owo.json',JSON.stringify(store),console.error);
+	fs.writeFile('./commands/owo.json',JSON.stringify(store),console.error);
 }
 
 exports.run = async (client,message,args)=>{
