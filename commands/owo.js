@@ -5,21 +5,12 @@ const AndList = new Intl.ListFormat();
 
 
 const Webhooks = {};
-const channels = new Proxy(store, {
-	get: function(obj, id) {
-		if (!(('_' + id) in obj)) {
-			obj['_' + id] = [];
-		}
-		console.log(obj);
-		return obj['_' + id];
-	}
-});
 
 function addOWO(channelID,userIDs) {
 	let ret = [];
 	userIDs.forEach(user=>{
-		if (!channels[channelID].includes(user)) {
-			channels[channelID].push(user);
+		if (!store[channelID].includes(user)) {
+			store[channelID].push(user);
 			ret.push(user);
 		}
 	});
@@ -30,9 +21,9 @@ function addOWO(channelID,userIDs) {
 function removeOWO(channelID,userIDs) {
 	let ret = [];
 	userIDs.forEach(user=>{
-		var index = channels[channelID].lastIndexOf(user)
+		var index = store[channelID].lastIndexOf(user)
 		if (index!==-1) {
-			channels = channels.slice(0,index).concat(channels.slice(index+1))
+			store = store.slice(0,index).concat(store.slice(index+1))
 			ret.push(user);
 		}
 	});
@@ -43,7 +34,7 @@ function removeOWO(channelID,userIDs) {
 
 
 function setOWO(channelID,userIDs) {
-	channels[channelID] = userIDs;
+	store[channelID] = userIDs;
 	saveOWO();
 }
 
@@ -66,7 +57,7 @@ exports.run = async (client,message,args)=>{
 
 	if (op == 'get') {
 		const channel = args[0] || message.channel;
-		const users = channels[channel.id];
+		const users = store[channel.id] || [];
 		message.appendReply(
 			users.length
 			? `Current OWO users for ${channel.name} ${users.length !== 1 ? 'are ' : 'is '} ${AndList(users)}.`
@@ -75,10 +66,13 @@ exports.run = async (client,message,args)=>{
 		return;
 	}
 
-	const channel = client.channels.get(args[1]) || message.channel;
+	const channel = client.store.get(args[1]) || message.channel;
 	const regex = new RegExp(args[0],'i');
 	const users = channel.guild.members.filter(u=>regex.exec(u.displayName)||regex.exec(u.user.username))
 		.map(u=>u.id);
+
+	if (!store[channel.id])
+		store[channel.id] = [];
 
 	if (!Webhooks[channel.id]) {
 		if (await getWebhooks(client,webhooks=>{
@@ -132,7 +126,7 @@ exports.init = async (client) =>{
 	client.on('ready',()=>{
 
 		getWebhooks(client,webhooks=>{
-			Object.values(channels).forEach(channelID=>{
+			Object.values(store).forEach(channelID=>{
 				const webhook = webhooks.filter(webhook=>webhook.channelID===channelID)[0]
 				if (!webhook)
 					return console.error(`Cannot access webhook for channel: ${channelID}`);
@@ -148,7 +142,7 @@ exports.init = async (client) =>{
 		Promise.all(webhooks).then(ws=>{
 			
 
-			client.channels.map(c=>{
+			client.store.map(c=>{
 
 
 
@@ -156,14 +150,14 @@ exports.init = async (client) =>{
 			ws = ws.filter(k=>k);
 			ws = ws.shift().concat(...ws);
 
-			client.channels.map(c=>{
+			client.store.map(c=>{
 				c = c.id;
 				const webhook = ws.filter(w=>w&&w.channelID===c).first();
 				// if (!webhook) return console.error(`Cannot access webhook for channel: ${c}`);
-				if (!channels[c])
-					channels[c] = {webhook};
+				if (!store[c])
+					store[c] = {webhook};
 				else
-					channels[c].webhook = webhook;
+					store[c].webhook = webhook;
 			})
 		});*/
 	});
@@ -171,7 +165,7 @@ exports.init = async (client) =>{
 
 	
 	client.on("message",(m)=>{
-		const channel = channels[m.channel.id];
+		const channel = store[m.channel.id];
 		// if (m.author.bot) return;
 		if (!channel || !channel.includes(m.author.id)) return;
 		if (m.author===client.user && m.content.startsWith('||')) return;
