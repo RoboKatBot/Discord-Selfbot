@@ -129,10 +129,10 @@ exports.init = async (client) =>{
 	client.on('ready',()=>{
 
 		getWebhooks(client,webhooks=>{
-			Object.values(channels).forEach(channel=>{
-				const webhook = webhooks.filter(webhook=>webhook.channelID===channel.id).first()
+			Object.values(channels).forEach(channelID=>{
+				const webhook = webhooks.filter(webhook=>webhook.channelID===channelID).first()
 				if (!webhook)
-					return console.error(`Cannot access webhook for channel: ${channel.name} (${channel.id})`);
+					return console.error(`Cannot access webhook for channel: ${channelID}`);
 				Webhooks[channel.id] = webhook;
 			});
 		});
