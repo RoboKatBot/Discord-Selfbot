@@ -10,6 +10,7 @@ const channels = new Proxy(store, {
 		if (!(('_' + id) in obj)) {
 			obj['_' + id] = [];
 		}
+		console.log(obj);
 		return obj['_' + id];
 	}
 });
@@ -35,7 +36,7 @@ function removeOWO(channelID,userIDs) {
 			ret.push(user);
 		}
 	});
-	save();
+	saveOWO();
 	return ret;
 }
 
@@ -43,11 +44,11 @@ function removeOWO(channelID,userIDs) {
 
 function setOWO(channelID,userIDs) {
 	channels[channelID] = userIDs;
-	save();
+	saveOWO();
 }
 
 function saveOWO() {
-	fs.writeFile('./owo.json',JSON.stringify(store),()=>{});
+	fs.writeFile('./owo.json',JSON.stringify(store),console.error);
 }
 
 exports.run = async (client,message,args)=>{
