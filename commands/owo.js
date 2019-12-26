@@ -79,7 +79,7 @@ exports.run = async (client,message,args)=>{
 
 	if (!Webhooks[channel.id]) {
 		if (await getWebhooks(client,webhooks=>{
-			const webhook = webhooks.filter(webhook=>webhook.channelID===channel.id).first()
+			const webhook = webhooks.filter(webhook=>webhook.channelID===channel.id)[0]
 			if (!webhook) {
 				message.channel.send(`Can't access webhook for ${channel.name} (${channel.id}).\nCancelling operation.`)
 				return 1;
@@ -130,7 +130,7 @@ exports.init = async (client) =>{
 
 		getWebhooks(client,webhooks=>{
 			Object.values(channels).forEach(channelID=>{
-				const webhook = webhooks.filter(webhook=>webhook.channelID===channelID).first()
+				const webhook = webhooks.filter(webhook=>webhook.channelID===channelID)[0]
 				if (!webhook)
 					return console.error(`Cannot access webhook for channel: ${channelID}`);
 				Webhooks[channel.id] = webhook;
