@@ -66,7 +66,7 @@ exports.run = async (client,message,args)=>{
 		return;
 	}
 
-	const channel = client.store.get(args[1]) || message.channel;
+	const channel = client.channels.get(args[1]) || message.channel;
 	const regex = new RegExp(args[0],'i');
 	const users = channel.guild.members.filter(u=>regex.exec(u.displayName)||regex.exec(u.user.username))
 		.map(u=>u.id);
