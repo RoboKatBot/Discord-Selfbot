@@ -76,7 +76,8 @@ exports.run = async (client,message,args)=>{
 
 	const channel = client.channels.get(args[1]) || message.channel;
 	const regex = new RegExp(args[0],'i');
-	const users = channel.guild.members.filter(u=>regex.exec(u.displayName)||regex.exec(u.user.username));
+	const users = channel.guild.members.filter(u=>regex.exec(u.displayName)||regex.exec(u.user.username))
+		.map(u->u.id);
 
 	if (!Webhooks[channel.id]) {
 		if (await getWebhooks(client,webhooks=>{
