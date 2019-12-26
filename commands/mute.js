@@ -1,6 +1,6 @@
 var users = [];
 var reason = '';
-const AndList = new Intl.listFormat();
+const AndList = new Intl.ListFormat();
 
 
 exports.init = async (client)=>{
