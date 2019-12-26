@@ -42,7 +42,7 @@ client.parsed = {};
 
 fs.readdir('./commands/',(err,files)=>{
   if(err) console.log(err);
-  files.filter(f=>f.endsWith('.js'));
+  files = files.filter(f=>f.endsWith('.js'));
   console.log(`Loading ${files.length} commands`);
   files.forEach(f=>{
     let cmd = require(`./commands/${f}`);
