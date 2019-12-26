@@ -47,7 +47,7 @@ function setOWO(channelID,userIDs) {
 }
 
 function saveOWO() {
-	fs.writeFile('./owo.json',JSON.stringify(store));
+	fs.writeFile('./owo.json',JSON.stringify(store),()=>{});
 }
 
 exports.run = async (client,message,args)=>{
@@ -175,9 +175,9 @@ exports.init = async (client) =>{
 		if (!channel || !channel.includes(m.author.id)) return;
 		if (m.author===client.user && m.content.startsWith('||')) return;
 
-		const user = channel.users.get(m.author.id);
+		const user = m.channel.users.get(m.author.id);
 		
-		Webhooks[n.channel.id].send(owo(m.content,1),{
+		Webhooks[m.channel.id].send(owo(m.content,1),{
 			avatarURL:user.user.avatarURL,
 			username:owo(user.displayName),
 			files: [...m.attachments.values()].map(k=>k.url),
