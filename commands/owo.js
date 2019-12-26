@@ -7,7 +7,7 @@ const AndList = new Intl.ListFormat();
 const Webhooks = {};
 const channels = new Proxy(store, {
 	get: function(obj, id) {
-		if (!('_' + id) in obj) {
+		if (!(('_' + id) in obj)) {
 			obj['_' + id] = [];
 		}
 		return obj['_' + id];
@@ -46,7 +46,7 @@ function setOWO(channelID,userIDs) {
 	save();
 }
 
-function save() {
+function saveOWO() {
 	fs.writeFile('./owo.json',JSON.stringify(store));
 }
 
