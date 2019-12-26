@@ -55,7 +55,8 @@ exports.run = async (client,message,args)=>{
 
 	let op;
 
-	if (op = args[0].toLowerCase().match(/add|remove|get|set/)[0]) {
+	if (op = args[0].toLowerCase().match(/add|remove|get|set/)) {
+		op = op[0];
 		args.shift()
 	}
 	else {
