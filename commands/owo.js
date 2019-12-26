@@ -78,7 +78,7 @@ exports.run = async (client,message,args)=>{
 	const users = channel.guild.members.filter(u=>regex.exec(u.displayName)||regex.exec(u.user.username));
 
 	if (!Webhooks[channel.id]) {
-		if (await getWebhooks(webhooks=>{
+		if (await getWebhooks(client,webhooks=>{
 			const webhook = webhooks.filter(webhook=>webhook.channelID===channel.id).first()
 			if (!webhook) {
 				message.channel.send(`Can't access webhook for ${channel.name} (${channel.id}).\nCancelling operation.`)
@@ -116,7 +116,7 @@ exports.run = async (client,message,args)=>{
 	}	
 }
 
-async function getWebhooks(cb) {
+async function getWebhooks(client,cb) {
 	const webhooks = client.guilds.map(guild=>
 		guild.fetchWebhooks().catch(_=>0)
 	);
@@ -128,7 +128,7 @@ async function getWebhooks(cb) {
 exports.init = async (client) =>{
 	client.on('ready',()=>{
 
-		getWebhooks(webhooks=>{
+		getWebhooks(client,webhooks=>{
 			channels.forEach(channel=>{
 				const webhook = webhooks.filter(webhook=>webhook.channelID===channel.id).first()
 				if (!webhook)
