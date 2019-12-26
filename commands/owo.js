@@ -126,7 +126,7 @@ exports.init = async (client) =>{
 	client.on('ready',()=>{
 
 		getWebhooks(client,webhooks=>{
-			Object.values(store).forEach(channelID=>{
+			Object.keys(store).forEach(channelID=>{
 				const webhook = webhooks.filter(webhook=>webhook.channelID===channelID)[0]
 				if (!webhook)
 					return console.error(`Cannot access webhook for channel: ${channelID}`);
