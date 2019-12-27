@@ -28,7 +28,7 @@ exports.conf = {
 
 exports.help = {
 	name:"cat",
-	desc:"Kitties!!!",
+	desc:"Sends n random cat gifs to the channel",
 	usage:"cat [number]",
 	extended:""
 }

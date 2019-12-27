@@ -1,6 +1,6 @@
 exports.run = async (client,message,args)=>{
 	if (!args[0]) {
-		return message.appendReply(`Avaliable commands:\n${Object.values(client.commands).map(k=>k.help.name+'\t'+k.help.desc).join('\n')}`);
+		return message.appendReply(`Avaliable commands:\n${Object.values(client.commands).map(k=>k.help.name.padEnd(18)+k.help.desc).join('\n')}`);
 	}
 	if (args[0] in client.commands) {
 		let command = client.commands[args[0]];

@@ -56,7 +56,7 @@ exports.conf = {
 
 exports.help = {
 	name:"mute",
-	desc:"mutes or unmutes one or more users",
+	desc:"Mutes or unmutes one or more users",
 	usage:"mute RegExp [true/false] [Reason]",
 	extended:""
 }

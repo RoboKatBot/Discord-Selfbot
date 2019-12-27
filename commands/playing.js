@@ -8,12 +8,12 @@ exports.run = async (client,message,args)=>{
 
 
 exports.conf = {
-	aliases:["game"]
+	aliases:["game","presence"]
 }
 
 exports.help = {
 	name:"playing",
-	desc:"Set or view the current game",
-	usage:"playing [GameName]",
+	desc:"Set or view the current presence",
+	usage:"playing [presence]",
 	extended:""
 }

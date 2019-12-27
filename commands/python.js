@@ -16,7 +16,7 @@ exports.conf = {
 
 exports.help = {
 	name:"python",
-	desc:"Executes command in python",
-	usage:"python <python code>",
+	desc:"Executes arbitrary code in python",
+	usage:"python <code>",
 	extended:""
 }

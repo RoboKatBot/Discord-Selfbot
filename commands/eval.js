@@ -21,9 +21,12 @@ exports.run = async (client,message,args)=>{
 }
 
 exports.conf = {
-	aliases:['node']
+	aliases:['node','exec']
 }
 
 exports.help = {
-	name:"eval"
+	name:"eval",
+	desc:"Eval arbitraty javascript code in the environment of the selfbot",
+	usage:"eval <>",
+	extended:""
 }

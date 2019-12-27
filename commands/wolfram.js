@@ -32,7 +32,7 @@ exports.conf = {
 
 exports.help = {
 	name:"wolfram",
-	desc:"open/use a wolfram repl session",
-	usage:"wolfram [code]",
+	desc:"Open/use a wolfram repl session",
+	usage:"wolfram <code>",
 	extended:""
 }

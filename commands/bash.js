@@ -16,8 +16,8 @@ exports.conf = {
 
 exports.help = {
 	name:"bash",
-	desc:"e",
-	usage:"bash <bash command>",
+	desc:"Evaluate arbitrary shell code on the raspi",
+	usage:"bash <code>",
 	extended:""
 }
 

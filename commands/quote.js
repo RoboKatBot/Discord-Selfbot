@@ -18,6 +18,6 @@ exports.conf = {
 
 exports.help = {
   name: 'quote',
-  description: 'Replies to a message by ID, by embedding the original below your response. Requires embed permissions!',
+  desc: 'Replies to a message by ID, by embedding the original below your response. Requires embed permissions!',
   usage: 'quote [message ID]'
 };
