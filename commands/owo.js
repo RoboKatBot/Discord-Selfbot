@@ -42,6 +42,12 @@ function saveOWO() {
 	fs.writeFile('./commands/owo.json',JSON.stringify(store))/*.catch(console.error)*/;
 }
 
+function getNames(userIDS) {
+	return client.users.filter(u=>
+		userIDS.includes(u.id)
+	);
+}
+
 exports.run = async (client,message,args)=>{
 	// if (message.guild.id!=='262139990748692480') return;
 
@@ -60,7 +66,7 @@ exports.run = async (client,message,args)=>{
 		const users = store[channel.id] || [];
 		message.appendReply(
 			users.length
-			? `Current OWO users for ${channel.name} ${users.length !== 1 ? 'are ' : 'is '} ${toList.format(users)}.`
+			? `Current OWO users for ${channel.name} ${users.length !== 1 ? 'are ' : 'is '} ${toList.format(getNames(users))}.`
 			: `There is currently no OWO users for ${channel.name}.`
 		);
 		return;
@@ -90,7 +96,7 @@ exports.run = async (client,message,args)=>{
 	if (op == 'remove') {
 		const Δusers = removeOWO(channel.id,users);
 		message.appendReply(
-			`Removed OWO for ${toList.format(Δusers)}.`
+			`Removed OWO for ${toList.format(getNames(Δusers))}.`
 		)
 		return;
 	}
@@ -99,7 +105,7 @@ exports.run = async (client,message,args)=>{
 		setOWO(channel.id,users);
 		message.appendReply(
 			users.length
-			? `Set OWO to ${toList.format(users)}.`
+			? `Set OWO to ${toList.format(getNames(users))}.`
 			: `Set OWO to nobody.`
 		)
 		return;
@@ -108,7 +114,7 @@ exports.run = async (client,message,args)=>{
 	if (op == 'add') { //Default to 'add'
 		const Δusers = addOWO(channel.id,users);
 		message.appendReply(
-			`Added OWO for ${Δusers.length ? toList.format(Δusers) : 'nobody'}.`
+			`Added OWO for ${Δusers.length ? toList.format(getNames(Δusers)) : 'nobody'}.`
 		)
 	}	
 }
