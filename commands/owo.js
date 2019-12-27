@@ -21,9 +21,10 @@ function addOWO(channelID,userIDs) {
 function removeOWO(channelID,userIDs) {
 	let ret = [];
 	userIDs.forEach(user=>{
-		var index = store[channelID].lastIndexOf(user)
+		const c = store[channelID]
+		var index = c.lastIndexOf(user)
 		if (index!==-1) {
-			store = store.slice(0,index).concat(store.slice(index+1))
+			c = c.slice(0,index).concat(c.slice(index+1))
 			ret.push(user);
 		}
 	});
@@ -82,9 +83,9 @@ exports.run = async (client,message,args)=>{
 
 	if (!Webhooks[channel.id]) {
 		if (await getWebhooks(client,webhooks=>{
-			const webhook = webhooks.filter(webhook=>webhook.channelID===channel.id).first()
+			const webhook = webhooks.filter(webhook=>webhook.channelID===channel.id).first();
 			if (!webhook) {
-				message.channel.send(`Can't access webhook for ${channel.name} (${channel.id}).\nCancelling operation.`)
+				message.channel.send(`Can't access webhook for ${channel.name} (${channel.id}).\nCancelling operation.`);
 				return 1;
 			}
 			Webhooks[channel.id] = webhook;
