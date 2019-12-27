@@ -17,6 +17,6 @@ exports.conf = {
 exports.help = {
 	name:"delete",
 	desc:"Deletes the last n messages for the client or the users matching the regex",
-	usage:"delete [number], [regex]"
+	usage:"delete [number], [regex]",
 	extended:""
 }
