@@ -21,7 +21,7 @@ function addOWO(channelID,userIDs) {
 function removeOWO(channelID,userIDs) {
 	let ret = [];
 	userIDs.forEach(user=>{
-		const c = store[channelID]
+		let c = store[channelID]
 		var index = c.lastIndexOf(user)
 		if (index!==-1) {
 			c = c.slice(0,index).concat(c.slice(index+1))
@@ -67,7 +67,7 @@ exports.run = async (client,message,args)=>{
 		const users = store[channel.id] || [];
 		message.appendReply(
 			users.length
-			? `Current OWO users for ${channel.name} ${users.length !== 1 ? 'are ' : 'is '} ${toList.format(getNames(client,users))}.`
+			? `Current OWO users for ${channel.name} ${users.length !== 1 ? 'are' : 'is'} ${toList.format(getNames(client,users))}.`
 			: `There is currently no OWO users for ${channel.name}.`
 		);
 		return;
