@@ -42,7 +42,7 @@ function saveOWO() {
 	fs.writeFile('./commands/owo.json',JSON.stringify(store))/*.catch(console.error)*/;
 }
 
-function getNames(client,client,userIDS) {
+function getNames(client,userIDS) {
 	return client.users.filter(u=>
 		userIDS.includes(u.id)
 	).map(u=>u.username);
