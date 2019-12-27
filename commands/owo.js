@@ -93,6 +93,10 @@ exports.run = async (client,message,args)=>{
 			return;
 	}
 
+	if (!channel.members.get(client.user.id).hasPermission("MANAGE_MESSAGES")) {
+		message.channel.send(`Warning, can not delete messages in ${channel.name} (${channel.id}). This will lead to duplicate messages.`)
+	}
+
 
 	if (op == 'remove') {
 		const Δusers = removeOWO(channel.id,users);
