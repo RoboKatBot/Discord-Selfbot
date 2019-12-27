@@ -45,7 +45,7 @@ function saveOWO() {
 function getNames(userIDS) {
 	return client.users.filter(u=>
 		userIDS.includes(u.id)
-	);
+	).map(u=>u.username);
 }
 
 exports.run = async (client,message,args)=>{
