@@ -1,10 +1,10 @@
 exports.run = async (client,message,args)=>{
 	if (!args[0]) {
-		return message.appendReply(`Avaliable commands:\n${Object.keys(client.commands).join('\n')}`);
+		return message.appendReply(`Avaliable commands:\n${client.commands.map(k=>k.help.name+'\t'+k.help.desc).join('\n')}`);
 	}
 	if (args[0] in client.commands) {
 		let command = client.commands[args[0]];
-		return message.appendReply(`${command.desc}\nUsage:\n${command.usage}`);
+		return message.appendReply(`${command.help.extended||command.help.desc}\nUsage:\n${command.help.usage}`);
 	}
 	return message.appendReply(`Usage:\n${exports.help.usage}`);
 }
