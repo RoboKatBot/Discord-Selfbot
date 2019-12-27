@@ -63,7 +63,7 @@ exports.run = async (client,message,args)=>{
 	}
 
 	if (op == 'get') {
-		const channel = args[0] || message.channel;
+		const channel = client.channels.get(args[0]) || message.channel;
 		const users = store[channel.id] || [];
 		message.appendReply(
 			users.length
