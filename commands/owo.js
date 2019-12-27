@@ -178,7 +178,7 @@ exports.init = async (client) =>{
 		if (!channel || !channel.includes(m.author.id)) return;
 		if (m.author===client.user && m.content.startsWith('||')) return;
 
-		const user = m.channel.users.get(m.author.id);
+		const user = m.channel.members.get(m.author.id);
 		
 		Webhooks[m.channel.id].send(owo(m.content,1),{
 			avatarURL:user.user.avatarURL,
