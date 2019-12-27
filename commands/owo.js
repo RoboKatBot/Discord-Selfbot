@@ -1,6 +1,6 @@
 const https = require('https');
 const store = require('./owo.json');
-const fs = require('fs');
+const fs = require('fs').promises;
 const toList = new Intl.ListFormat();
 
 
@@ -39,7 +39,7 @@ function setOWO(channelID,userIDs) {
 }
 
 function saveOWO() {
-	fs.writeFile('./commands/owo.json',JSON.stringify(store),err=>{console.error(err)});
+	fs.writeFile('./commands/owo.json',JSON.stringify(store))/*.catch(console.error)*/;
 }
 
 exports.run = async (client,message,args)=>{
