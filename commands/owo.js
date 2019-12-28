@@ -215,7 +215,7 @@ exports.conf = {
 exports.help = {
 	name:"owo",
 	desc:"Turns all messages in channel for users to owo",
-	usage:"owo [add|set|remove] RegExp [channelID]",
+	usage:"owo [add|set|remove|get] RegExp [channelID]",
 	extended:""
 }
 
@@ -228,7 +228,7 @@ exports.help = {
 
 
 
-const cancer = ["owo", "OwO", "uwu", "UwU", ">w<", "^w^"];
+const cancer = ["owo", "OwO", "uwu", "UwU", ">w<", "^w^", "◕w◕", "◔w◔", "☆w☆", "ØwØ", "σωσ", "ᅌ ω ᅌ", "(⁄ʘ⁄ ⁄ ω⁄ ⁄ ʘ⁄)♡"];
 const httpRegex = /(https?:\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+.~#?&//=]*))/gi;
 const emojiRegex = /(:[a-zA-Z0-9_]+:)/gi;
 const finalRegex = RegExp(httpRegex.source + '|' + emojiRegex.source,'gi');
