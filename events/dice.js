@@ -15,7 +15,7 @@ module.exports = async (client,message)=>{
 			'':''}
 		`);
 
-	
+
 	function send(content) {
 
 		const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
@@ -49,7 +49,7 @@ module.exports = async (client,message)=>{
 
 
 function roll(n,m) {
-	return Array.from(d
+	return Array.from(
 		Array(n),
 		()=>Math.ceil(m*Math.random())
 	);
