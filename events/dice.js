@@ -36,7 +36,7 @@ function send(content) {
 		}
 	).end(JSON.stringify({
 		content:content,
-		avatar_url:'https://cdn.discordapp.com/attachments/516008671206047776/663456000866648074/diceAndMen_Black3.png',
+		avatar_url:'https://cdn.discordapp.com/attachments/349488875561025536/666277457564794900/unknown.png',
 		username:'DiceGuy'
 	}));
 }
