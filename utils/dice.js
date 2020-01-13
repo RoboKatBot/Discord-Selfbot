@@ -1,11 +1,11 @@
-// const https = require('https');
+const https = require('https');
 const config = require('../config.json');
 
-exports.run = async (client,message)=>{
+module.exports = async (client,message)=>{
 	const parsed = message.content.match(/^\\r\s*(\d*)d(\d+)/);
 	const req = [parseInt(parsed[1])||1,parseInt(parsed[2])];
 	const res = roll(...req);
-	exports.send(
+	send(
 		req[0]!==1 ? res + '   - ' : '' +
 		res.reduce((a,b)=>a+b).toString() +
 		req[0]==1 && req[1] == 20 ? 
@@ -13,12 +13,9 @@ exports.run = async (client,message)=>{
 			res[0] == 1  ? '   - Critical Failure!' :
 			'':''
 		);
-};
 
 
-
-exports.init = async (client) => {
-	exports.send(content) => {
+	function send(content) {
 
 		const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
 			.then(webhooks=>webhooks.filter(webhook=>webhook.channelID=='666257084941074442').first())
@@ -42,7 +39,9 @@ exports.init = async (client) => {
 		}));*/
 
 	}
-}
+
+
+};
 
 
 

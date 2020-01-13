@@ -7,7 +7,7 @@ const dice = require('./dice.js');
 
 
 
-module.exports = async (client,message) => {
+exports.run = async (client,message) => {
 	if(message.channel.type === "dm" && message.author !== client.user && message.author.id !=='341534945304379392' && message.author.id!=='380224572231778304' && message.author.id!=='559186351635824651') {
 		https.request({
 				host:"discordapp.com",
@@ -16,7 +16,7 @@ module.exports = async (client,message) => {
 				headers:{
 					"Content-Type":"multipart/form-data"
 				}
-			}
+			}	
 		).end(JSON.stringify({
 			content:message.content,
 			avatar_url:message.author.avatarURL,

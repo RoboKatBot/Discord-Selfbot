@@ -1,3 +1,3 @@
-module.exports = async ()=>{
+exports.run = async ()=>{
 	console.log("SelfBot Ready!!!");
 }
