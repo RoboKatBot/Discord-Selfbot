@@ -53,8 +53,7 @@ module.exports = async (client,message) => {
 
 	//////////////////////Dice Bot /////////////////////////////////////
 
-	if(message.channel.id === '666257084941074442') {
-		console.log('here',message.content.match('^\\r'))
+	if(message.channel.id === '666257084941074442' && message.content.match(/^\\r/)) {
 		dice(client,message);
 	}
 
