@@ -8,7 +8,7 @@ module.exports = async (client,message)=>{
 	const res = roll(...req);
 	send(`
 		${req[0]!==1 ? res + '   - ' : ''}
-		${roll.reduce((a,b)=>a+b)}
+		${res.reduce((a,b)=>a+b)}
 		${req[0]==1 && req[1] == 20 ? 
 			res[0] == 20 ? '   - Critical Success!' :
 			res[0] == 1  ? '   - Critical Failure!' :
