@@ -1,7 +1,7 @@
 const https = require('https');
 const config = require('../config.json');
 
-const webhooks = guild.fetchWebhooks()
+const webhooks = client.guilds.get('666236320745652224').fetchWebhooks()
 	.then(webhooks=>webhooks.filter(webhook=>webhook.channelID=='666257084941074442'));
 
 module.exports = async (client,message)=>{
