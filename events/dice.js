@@ -32,7 +32,7 @@ function send(content) {
 	webhook.then(webhook=>webhook.send(content,{
 			avatarURL:'https://cdn.discordapp.com/attachments/349488875561025536/666277457564794900/unknown.png',
 			username:'DiceGuy'
-		});
+		}));
 	/*https.request({
 			host:"discordapp.com",
 			path:config.DiceChannel,
