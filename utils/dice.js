@@ -1,3 +1,4 @@
+			res[0] == 1  ? '   - Critical Failure!' :
 const https = require('https');
 const config = require('../config.json');
 
