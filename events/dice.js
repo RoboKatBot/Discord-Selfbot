@@ -1,9 +1,6 @@
 const https = require('https');
 const config = require('../config.json');
 
-const webhooks = client.guilds.get('666236320745652224').fetchWebhooks()
-	.then(webhooks=>webhooks.filter(webhook=>webhook.channelID=='666257084941074442'));
-
 module.exports = async (client,message)=>{
 	const parsed = message.content.match(/^\\r\s*(\d*)d(\d+)/);
 	const req = [parseInt(parsed[1]),parseInt(parsed[2])];
@@ -20,7 +17,7 @@ module.exports = async (client,message)=>{
 
 
 
-webhook = client.guilds.get('666236320745652224').fetchWebhooks()
+const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
 	.then(webhooks=>webhooks.filter(webhook=>webhook.channelID=='666257084941074442').first())
 
 
@@ -32,7 +29,7 @@ function roll(n,m) {
 }
 
 function send(content) {
-	webhook.send(content,{
+	webhook.then(webhook=>webhook.send(content,{
 			avatarURL:'https://cdn.discordapp.com/attachments/349488875561025536/666277457564794900/unknown.png',
 			username:'DiceGuy'
 		});
