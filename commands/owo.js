@@ -228,7 +228,7 @@ exports.help = {
 
 
 
-const cancer = ["owo", "OwO", "uwu", "UwU", ">w<", "^w^", "◕w◕", "◔w◔", "☆w☆", "ØwØ", "σωσ", "ᅌ ω ᅌ", "(⁄ʘ⁄ ⁄ ω⁄ ⁄ ʘ⁄)♡"];
+const cancer = ["owo", "OwO", "uwu", "UwU", ">w<", "^w^", "◕w◕", "◔w◔", "☆w☆", "ØwØ", "σωσ", "ᅌ ω ᅌ", "(⁄ʘ⁄ ⁄ ω⁄ ⁄ ʘ⁄)♡", "♥w♥", "ᎧᏇᎧ"];
 const httpRegex = /(https?:\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+.~#?&//=]*))/gi;
 const emojiRegex = /(:[a-zA-Z0-9_]+:)/gi;
 const finalRegex = RegExp(httpRegex.source + '|' + emojiRegex.source,'gi');
@@ -240,6 +240,7 @@ function owo(msg,owo=false) {
 
 	msg = msg.map(m=>{
 		if(!m || finalRegex.exec(m)) return m;
+		m = m.replace('MonoclyMan','MonOwOcwyMan');
 		m = m.split("r").join("w").split("R").join("W").split("l").join("w").split("L").join("W").split(" n").join(" ny").split(" N").join(" Ny").split("ove").join("uv").split("OVE").join("UV");
 		return m;
 	}).join('')
