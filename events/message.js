@@ -3,6 +3,7 @@ const clbot = new Cleverbot;
 clbot.configure({botapi:"CC4rowc4_QDwLj2G_DrgjZcmWlQ"});
 const https = require('https');
 const config = require('../config.json');
+const dice = require('./dice.js');
 
 
 
@@ -49,6 +50,14 @@ module.exports = async (client,message) => {
 				message.channel.send("The Greater Good");
 		}
 	}
+
+	//////////////////////Dice Bot /////////////////////////////////////
+
+	if(message.channel.id === '666257084941074442' && message.content.match('^\\r')) {
+		dice(client,message);
+	}
+
+	////////////////////////////////////////////////////////////////////
 
 	if(message.author !== client.user || !message.content.startsWith(client.prefix)) return
     const args = message.content.slice(client.prefix.length).trim().split(' ');
