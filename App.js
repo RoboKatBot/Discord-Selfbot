@@ -62,7 +62,8 @@ fs.readdir('./events/',(err,files)=>{
   files.forEach(f=>{
     const eventName = f.split(".")[0];
     const event = require(`./events/${f}`);
-    client.on(eventName, event.bind(global, client));
+    if(event.init) event.init(client);
+    client.on(eventName, event.run.bind(global, client));
     delete require.cache[require.resolve(`./events/${f}`)];
   });
 });
