@@ -5,14 +5,14 @@ exports.run = async (client,message)=>{
 	const parsed = message.content.match(/^\\r\s*(\d*)d(\d+)/);
 	const req = [parseInt(parsed[1])||1,parseInt(parsed[2])];
 	const res = roll(...req);
-	exports.send(
-		req[0]!==1 ? res + '   - ' : '' +
-		res.reduce((a,b)=>a+b).toString() +
+	exports.send([
+		req[0]!==1 ? res : '' +
+		res.reduce((a,b)=>a+b) +
 		req[0]==1 && req[1] == 20 ? 
-			res[0] == 20 ? '   - Critical Success!' :
-			res[0] == 1  ? '   - Critical Failure!' :
+			res[0] == 20 ? 'Critical Success!' :
+			res[0] == 1  ? 'Critical Failure!' :
 			'':''
-		);
+		].filter(Boolean).join('    - '));
 };
 
 
