@@ -12,7 +12,7 @@ module.exports = async (client,message)=>{
 		${req[0]==1 && req[1] == 20 ? 
 			res[0] == 20 ? '   - Critical Success!' :
 			res[0] == 1  ? '   - Critical Failure!' :
-			''}
+			'':''}
 		`);
 };
 
