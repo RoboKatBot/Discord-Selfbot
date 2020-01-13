@@ -18,7 +18,7 @@ exports.run = async (client,message)=>{
 
 
 exports.init = async (client) => {
-	exports.send(content) => {
+	exports.send = (content) => {
 
 		const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
 			.then(webhooks=>webhooks.filter(webhook=>webhook.channelID=='666257084941074442').first())
