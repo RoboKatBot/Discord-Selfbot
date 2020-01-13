@@ -3,7 +3,6 @@ const config = require('../config.json');
 
 module.exports = async (client,message)=>{
 	const parsed = message.content.match(/^\\r\s*(\d*)d(\d+)/);
-	console.log(parsed);
 	const req = [parseInt(parsed[1])||1,parseInt(parsed[2])];
 	const res = roll(...req);
 	send(`
