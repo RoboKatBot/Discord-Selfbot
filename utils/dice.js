@@ -47,14 +47,14 @@ exports.run = async (client,message)=>{
 
 exports.init = async (client) => {
 	exports.send = (content) => {
-
-		const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
+		console.log(content)
+		/*const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
 			.then(webhooks=>webhooks.filter(webhook=>webhook.channelID=='666257084941074442').first())
 
 		webhook.then(webhook=>webhook.send(content,{
 				avatarURL:'https://cdn.discordapp.com/attachments/349488875561025536/666277457564794900/unknown.png',
 				username:'DiceGuy'
-			}));
+			}));*/
 		/*https.request({
 				host:"discordapp.com",
 				path:config.DiceChannel,
