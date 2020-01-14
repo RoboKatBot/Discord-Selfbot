@@ -6,26 +6,41 @@ exports.run = async (client,message)=>{
 	const atoms = content.replace('-','+-').split('+');
 	atoms.map(atom=>{
 		const dice = atom.match(/(\d*)d(\d+)/);
-		const neg = atom.match(/\-/g).length&1?-1:1;
+		const neg = (atom.match(/\-/g)||[]).length&1;
 		if (dice) {
 			diceInts = [parseInt(dice[1])||1,parseInt(dice[2])];
-			return roll(...diceInts)*neg;
+			return {value:roll(...diceInts),params:diceInts,neg};
 		}
 		else {
-			return parseInt(atom.match(/\d+/))*neg;
+			const constant = parseInt(atom.match(/\d+/))
+			return {value:constant,params:constant,neg};
+		}
+	});
+	let dice = atoms.filter(atom=>atom.params.length==2)
+	const message = [];
+	message.push(atoms.map(atom=>{
+		let ret = neg ? '- ' : '+ ' ;
+		if (atom.value.length) 
+			ret += `(${atom.value})`;
+		else
+			ret += atom.value;
+	}).join('').slice(2));
+
+	let total = 0;
+	atoms.forEach(atom=>{
+		if (atom.value.length) {
+			total += atom.value.reduce((a,b)=>a+b,0)*atom.neg?-1:1;
+		}
+		else {
+			total += atom.value*atom.neg?-1:1;
 		}
 	})
-	const parsed = message.content.match(/^\\r\s*(\d*)d(\d+)\s*/);
-	const req = [parseInt(parsed[1])||1,parseInt(parsed[2])];
-	const res = roll(...req);
-	exports.send([
-		req[0]!==1 ? res : '',
-		res.reduce((a,b)=>a+b),
-		req[0]==1 && req[1] == 20 ? 
-			res[0] == 20 ? 'Critical Success!' :
-			res[0] == 1  ? 'Critical Failure!' :
-			'':''
-		].filter(Boolean).join('\n'));
+	message.push(total);
+	if (dice.length==1&&dice[0].params[0]==1&&dice[0].params[1]==20) {
+		if dice.roll==20 message.push('Critical Success!');
+		if dice.roll==1 message.push('Critical Failure!');
+	}
+	exports.send(message.filter(Boolean).join('\n'));
 };
 
 
