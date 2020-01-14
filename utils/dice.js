@@ -19,7 +19,7 @@ exports.run = async (client,message)=>{
 	let dice = atoms.filter(atom=>atom.params.length==2)
 	const response = [];
 	response.push(atoms.map(atom=>{
-		let ret = neg ? '- ' : '+ ' ;
+		let ret = atom.neg ? '- ' : '+ ' ;
 		if (atom.value.length) 
 			ret += `(${atom.value})`;
 		else
