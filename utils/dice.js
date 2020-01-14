@@ -3,8 +3,8 @@ const config = require('../config.json');
 
 exports.run = async (client,message)=>{
 	const content =  message.content.slice(2);
-	const atoms = content.replace('-','+-').split('+');
-	atoms.map(atom=>{
+	let atoms = content.replace('-','+-').split('+');
+	atoms = atoms.map(atom=>{
 		const dice = atom.match(/(\d*)d(\d+)/);
 		const neg = (atom.match(/\-/g)||[]).length&1;
 		if (dice) {
@@ -38,10 +38,10 @@ exports.run = async (client,message)=>{
 	response.push(total);
 	if (dice.length==1&&dice[0].params[0]==1&&dice[0].params[1]==20) {
 		if (dice.roll==20) message.push('Critical Success!');
-		if (dice.roll==1) message.push('Critical Failure!');
+		if (dice.roll==1 ) message.push('Critical Failure!');
 	}
 	exports.send(response.filter(Boolean).join('\n'));
-};
+};4
 
 
 
