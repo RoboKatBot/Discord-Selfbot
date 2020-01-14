@@ -37,8 +37,8 @@ exports.run = async (client,message)=>{
 	})
 	response.push(total);
 	if (dice.length==1&&dice[0].params[0]==1&&dice[0].params[1]==20) {
-		if dice.roll==20 message.push('Critical Success!');
-		if dice.roll==1 message.push('Critical Failure!');
+		if (dice.roll==20) message.push('Critical Success!');
+		if (dice.roll==1) message.push('Critical Failure!');
 	}
 	exports.send(response.filter(Boolean).join('\n'));
 };
