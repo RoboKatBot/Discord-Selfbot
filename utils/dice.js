@@ -19,42 +19,42 @@ exports.run = async (client,message)=>{
 	let dice = atoms.filter(atom=>atom.params.length==2)
 	const response = [];
 	response.push(atoms.map(atom=>{
-		let ret = atom.neg ? '- ' : '+ ' ;
+		let ret = atom.neg ? ' - ' : ' + ';
 		if (atom.value.length) 
 			ret += `(${atom.value})`;
 		else
 			ret += atom.value;
-	}).join('').slice(2));
+		return ret;
+	}).join('').slice(3) + ' = ');
 
 	let total = 0;
 	atoms.forEach(atom=>{
 		if (atom.value.length) {
-			total += atom.value.reduce((a,b)=>a+b,0)*atom.neg?-1:1;
+			total += atom.value.reduce((a,b)=>a+b,0)*(atom.neg?-1:1);
 		}
 		else {
-			total += atom.value*atom.neg?-1:1;
+			total += atom.value*(atom.neg?-1:1);
 		}
 	})
 	response.push(total);
 	if (dice.length==1&&dice[0].params[0]==1&&dice[0].params[1]==20) {
-		if (dice.roll==20) message.push('Critical Success!');
-		if (dice.roll==1 ) message.push('Critical Failure!');
+		if (dice[0].value[0]==20) response.push(' Critical Success!');
+		if (dice[0].value[0]==1 ) response.push(' Critical Failure!');
 	}
-	exports.send(response.filter(Boolean).join('\n'));
-};4
+	exports.send(response.join(''));
+};
 
 
 
 exports.init = async (client) => {
 	exports.send = (content) => {
-		console.log(content)
-		/*const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
+		const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
 			.then(webhooks=>webhooks.filter(webhook=>webhook.channelID=='666257084941074442').first())
 
 		webhook.then(webhook=>webhook.send(content,{
 				avatarURL:'https://cdn.discordapp.com/attachments/349488875561025536/666277457564794900/unknown.png',
 				username:'DiceGuy'
-			}));*/
+			}));
 		/*https.request({
 				host:"discordapp.com",
 				path:config.DiceChannel,
@@ -72,6 +72,7 @@ exports.init = async (client) => {
 	}
 }
 
+exports.run('',{content:'\\r d20 + 5'})
 
 
 
