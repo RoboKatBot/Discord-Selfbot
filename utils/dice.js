@@ -18,15 +18,16 @@ exports.run = async (client,message)=>{
 	});
 	let dice = atoms.filter(atom=>atom.params.length==2)
 	const response = [];
-	response.push(atoms.map(atom=>{
-		let ret = atom.neg ? ' - ' : ' + ';
-		if (atom.value.length) 
-			ret += `(${atom.value})`;
-		else
-			ret += atom.value;
-		return ret;
-	}).join('').slice(3) + ' = ');
-
+	if (dice.length>1) {
+		response.push(atoms.map(atom=>{
+			let ret = atom.neg ? ' - ' : ' + ';
+			if (atom.value.length) 
+				ret += `(${atom.value})`;
+			else
+				ret += atom.value;
+			return ret;
+		}).join('').slice(3) + ' = ');
+	}
 	let total = 0;
 	atoms.forEach(atom=>{
 		if (atom.value.length) {
