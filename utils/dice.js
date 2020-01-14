@@ -17,8 +17,8 @@ exports.run = async (client,message)=>{
 		}
 	});
 	let dice = atoms.filter(atom=>atom.params.length==2)
-	const message = [];
-	message.push(atoms.map(atom=>{
+	const response = [];
+	response.push(atoms.map(atom=>{
 		let ret = neg ? '- ' : '+ ' ;
 		if (atom.value.length) 
 			ret += `(${atom.value})`;
@@ -35,12 +35,12 @@ exports.run = async (client,message)=>{
 			total += atom.value*atom.neg?-1:1;
 		}
 	})
-	message.push(total);
+	response.push(total);
 	if (dice.length==1&&dice[0].params[0]==1&&dice[0].params[1]==20) {
 		if dice.roll==20 message.push('Critical Success!');
 		if dice.roll==1 message.push('Critical Failure!');
 	}
-	exports.send(message.filter(Boolean).join('\n'));
+	exports.send(response.filter(Boolean).join('\n'));
 };
 
 
