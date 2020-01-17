@@ -2,7 +2,7 @@ exports.run = async (client,message,args)=>{
 	if (message.channel.id!==/*'666245327224832008'*/'349488875561025536') return;
 
 	let then = new Date();
-	for (let i = 1; i < arg[0]||7;i++) {
+	for (let i = 1; i < args[0]||7;i++) {
 		then.setDate(now.getDate() + i)
 	}
 	client.channels.get('349488875561025536').send(`> ${then.toDateString()}`).then(message=>{
