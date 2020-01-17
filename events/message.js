@@ -3,6 +3,7 @@ const clbot = new Cleverbot;
 clbot.configure({botapi:"CC4rowc4_QDwLj2G_DrgjZcmWlQ"});
 const https = require('https');
 const config = require('../config.json');
+const users = require('../users.json');
 const dice = require('../utils/dice.js');
 
 
@@ -59,19 +60,17 @@ exports.run = async (client,message) => {
 
 	////////////////////////////////////////////////////////////////////
 
-	if(message.author !== client.user || !message.content.startsWith(client.prefix)) return
+	if(!message.content.startsWith(client.prefix)) return;
     const args = message.content.slice(client.prefix.length).trim().split(' ');
   	const command = args.shift().toLowerCase();
   	const cmd = client.commands[command] || client.commands[client.aliases[command]];
-	if (cmd) {
-		message.flags = [];
-		while(args[0] && (args[0][0] === "-" || args[0][0]=== "/")) {
-			message.flags.push(args.shift().slice(1));
-		}
-		cmd.run(client, message, args).catch(e=>{console.log(e);});
-	}/* else if(client.tags.has(command)) {
-		message.edit(`${args.join(" ")} ${client.tags.get(command).contents}`);
-	}*/
+	if (!cmd) return;
+	if (!users[message.author.id].includes('ALL') || !users[message.author.id].includes(command) || (cmd.help.userOverwrite && !cmd.help.userOverwrite === 'ALL' || !cmd.help.userOverwrite.includes(message.author.id))) return;
+	message.flags = [];
+	while(args[0] && (args[0][0] === "-" || args[0][0]=== "/")) {
+		message.flags.push(args.shift().slice(1));
+	}
+	cmd.run(client,message,args).catch(e=>{console.log(e);});
 }
 
 exports.init = async (client) => {
