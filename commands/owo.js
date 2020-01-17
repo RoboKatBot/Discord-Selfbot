@@ -22,7 +22,7 @@ function removeOWO(channelID,userIDs) {
 	let ret = [];
 	userIDs.forEach(user=>{
 		let c = store[channelID]
-		var index = c.lastIndexOf(user)
+		var index = c.indexOf(user)
 		if (index!==-1) {
 			c = c.slice(0,index).concat(c.slice(index+1))
 			ret.push(user);
@@ -62,6 +62,9 @@ exports.run = async (client,message,args)=>{
 		op = 'add'
 	}
 
+	if (!store[channel.id])
+		store[channel.id] = [];
+
 	if (op == 'get') {
 		const channel = client.channels.get(args[0]) || message.channel;
 		const users = store[channel.id] || [];
@@ -77,9 +80,6 @@ exports.run = async (client,message,args)=>{
 	const regex = new RegExp(args[0],'i');
 	const users = channel.guild.members.filter(u=>regex.exec(u.displayName)||regex.exec(u.user.username))
 		.map(u=>u.id);
-
-	if (!store[channel.id])
-		store[channel.id] = [];
 
 	if (!Webhooks[channel.id]) {
 		if (await getWebhooks(client,webhooks=>{

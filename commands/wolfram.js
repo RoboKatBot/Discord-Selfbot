@@ -34,5 +34,6 @@ exports.help = {
 	name:"wolfram",
 	desc:"Open/use a wolfram repl session",
 	usage:"wolfram <code>",
-	extended:""
+	extended:"",
+	userOverwrite:'197319892238598144'
 }

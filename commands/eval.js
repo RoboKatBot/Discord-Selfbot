@@ -28,5 +28,6 @@ exports.help = {
 	name:"eval",
 	desc:"Eval arbitraty javascript code in the environment of the selfbot",
 	usage:"eval <>",
-	extended:""
+	extended:"",
+	userOverwrite:'197319892238598144'
 }

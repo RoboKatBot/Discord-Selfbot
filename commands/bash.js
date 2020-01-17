@@ -18,6 +18,7 @@ exports.help = {
 	name:"bash",
 	desc:"Evaluate arbitrary shell code on the raspi",
 	usage:"bash <code>",
-	extended:""
+	extended:"",
+	userOverwrite:'197319892238598144'
 }
 

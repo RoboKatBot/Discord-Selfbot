@@ -18,5 +18,6 @@ exports.help = {
 	name:"delete",
 	desc:"Deletes the last n messages for the client or the users matching the regex",
 	usage:"delete [number], [regex]",
-	extended:""
+	extended:"",
+	userOverwrite:'197319892238598144'
 }

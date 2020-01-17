@@ -73,8 +73,6 @@ exports.init = async (client) => {
 	}
 }
 
-exports.run('',{content:'\\r d20 + 5'})
-
 
 
 

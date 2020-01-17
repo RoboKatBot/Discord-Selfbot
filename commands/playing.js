@@ -15,5 +15,6 @@ exports.help = {
 	name:"playing",
 	desc:"Set or view the current presence",
 	usage:"playing [presence]",
-	extended:""
+	extended:"",
+	userOverwrite:'197319892238598144'
 }

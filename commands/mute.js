@@ -58,5 +58,6 @@ exports.help = {
 	name:"mute",
 	desc:"Mutes or unmutes one or more users",
 	usage:"mute RegExp [true/false] [Reason]",
-	extended:""
+	extended:"",
+	userOverwrite:'197319892238598144'
 }

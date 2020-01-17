@@ -18,5 +18,6 @@ exports.help = {
 	name:"python",
 	desc:"Executes arbitrary code in python",
 	usage:"python <code>",
-	extended:""
+	extended:"",
+	userOverwrite:'197319892238598144'
 }
