@@ -65,7 +65,7 @@ exports.run = async (client,message) => {
   	const command = args.shift().toLowerCase();
   	const cmd = client.commands[command] || client.commands[client.aliases[command]];
 	if (!cmd) return;
-	if (!users[message.author.id].includes('ALL') || !users[message.author.id].includes(command) || (cmd.help.userOverwrite && !cmd.help.userOverwrite === 'ALL' || !cmd.help.userOverwrite.includes(message.author.id))) return;
+	if (!(users[message.author.id].includes('ALL') || users[message.author.id].includes(command) || (cmd.help.userOverwrite && cmd.help.userOverwrite === 'ALL' || cmd.help.userOverwrite.includes(message.author.id)))) return;
 	message.flags = [];
 	while(args[0] && (args[0][0] === "-" || args[0][0]=== "/")) {
 		message.flags.push(args.shift().slice(1));
