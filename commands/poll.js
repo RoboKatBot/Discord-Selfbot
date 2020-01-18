@@ -7,15 +7,16 @@ exports.run = async (client,message,args)=>{
 		then.setDate(now.getDate() + i);
 		let dateString = then.toDateString();
 		console.log(dateString);
-		client.channels.get('349488875561025536').send(`> ${dateString}`).then(pollMessage=>{
-			pollMessage.react('+1');
-			pollMessage.react('-1');
-			client.on('messageReactionAdd', (Reaction,user)=>{
-				if (user.id==='213592879480700928') {
-					pollMessage.edit(`~~${pollMessage.content}~~`);
-				}
-			})
-		})
+		client.channels.get('349488875561025536').send(`> ${dateString}`)
+			.then(pollMessage=>{
+				pollMessage.react(':+1:');
+				pollMessage.react(':-1:');
+				client.on('messageReactionAdd', (Reaction,user)=>{
+					if (user.id==='213592879480700928') {
+						pollMessage.edit(`~~${pollMessage.content}~~`);
+					}
+				})
+			}).catch(e=>console.error(`Error in reacting to poll message: ${e}`));
 	}
 }
 
