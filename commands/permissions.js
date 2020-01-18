@@ -18,7 +18,7 @@ exports.run = async (client,message,args)=>{
 	}
 
 	const regex = new RegExp(args[0],'i');
-	const user = client.users.filter(u=>regex.exec(u.username))
+	let user = [...client.users.filter(u=>regex.exec(u.username))]
 	if (user.length!==1) {
 		message.appendReply(
 			user.length
@@ -27,6 +27,7 @@ exports.run = async (client,message,args)=>{
 		);
 		return;
 	}
+	user = user[0];
 
 	if (!users[user.id])
 		users[user.id] = [];
