@@ -65,7 +65,7 @@ exports.run = async (client,message) => {
   	const command = args.shift().toLowerCase();
   	const cmd = client.commands[command] || client.commands[client.aliases[command]];
   	console.log(command,users[message.author.id],cmd.help.userOverwrite,'\n\n\n\n\n',
-  		[cmd,users[message.author.id].includes('ALL'),users[message.author.id].includes(command),cmd.help.userOverwrite,cmd.help.userOverwrite==='ALL',cmd.help.userOverwrite.includes(message.author.id)].map(Boolean))
+  		[cmd,users[message.author.id].includes('ALL'),users[message.author.id].includes(command),cmd.help.userOverwrite,cmd.help.userOverwrite&&cmd.help.userOverwrite==='ALL',cmd.help.userOverwrite&&cmd.help.userOverwrite.includes(message.author.id)].map(Boolean))
 	if (!cmd) return;
 	if (users[message.author.id].includes('ALL') 	|| 
 		users[message.author.id].includes(command) 	|| 
