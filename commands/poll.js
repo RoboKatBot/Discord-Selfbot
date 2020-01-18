@@ -4,17 +4,17 @@ exports.run = async (client,message,args)=>{
 	let now = new Date();
 	let then = new Date();
 	for (let i = 1; i < args[0]||7;i++) {
-		then.setDate(now.getDate() + i)
-	}
-	client.channels.get('349488875561025536').send(`> ${then.toDateString()}`).then(message=>{
-		message.react('+1');
-		message.react('-1');
-		client.on('messageReactionAdd', (Reaction,user)=>{
-			if (user.id==='213592879480700928') {
-				message.edit(`~~${message.content}~~`);
-			}
+		then.setDate(now.getDate() + i);
+		client.channels.get('349488875561025536').send(`> ${then.toDateString()}`).then(message=>{
+			message.react('+1');
+			message.react('-1');
+			client.on('messageReactionAdd', (Reaction,user)=>{
+				if (user.id==='213592879480700928') {
+					message.edit(`~~${message.content}~~`);
+				}
+			})
 		})
-	})
+	}
 }
 
 exports.init = (client)=>{
