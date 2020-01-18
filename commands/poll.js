@@ -3,7 +3,8 @@ exports.run = async (client,message,args)=>{
 	console.log(args);
 	let now = new Date();
 	let then = new Date();
-	for (let i = 1; i < args[0]||7;i++) {
+	let range = parseInt(args[0])||7;
+	for (let i = 1; i < range;i++) {
 		then.setDate(now.getDate() + i);
 		let dateString = then.toDateString();
 		client.channels.get('349488875561025536').send(`> ${dateString}`)
