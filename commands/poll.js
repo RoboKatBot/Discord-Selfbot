@@ -9,14 +9,14 @@ exports.run = async (client,message,args)=>{
 		console.log(dateString);
 		client.channels.get('349488875561025536').send(`> ${dateString}`)
 			.then(pollMessage=>{
-				await pollMessage.react(':+1:');
-				await pollMessage.react(':-1:');
+				pollMessage.react(':+1:').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
+				pollMessage.react(':-1:').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
 				client.on('messageReactionAdd', (Reaction,user)=>{
 					if (user.id==='213592879480700928') {
 						pollMessage.edit(`~~${pollMessage.content}~~`);
 					}
 				})
-			}).catch(e=>console.error(`Error in reacting to poll message: ${e}`));
+			});
 	}
 }
 
