@@ -1,18 +1,17 @@
 exports.run = async (client,message,args)=>{
-	if (message.channel.id!==/*'666245327224832008'*/'349488875561025536') return;
-	console.log(args);
+	if (message.channel.id!=='666245327224832008') return;
 	let now = new Date();
 	let then = new Date();
 	let range = parseInt(args[0])||7;
 	for (let i = 1; i <= range;i++) {
 		then.setDate(now.getDate() + i);
 		let dateString = then.toDateString();
-		client.channels.get('349488875561025536').send(`> ${dateString}`)
-			.then(pollMessage=>{
-				pollMessage.react('👍').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
-				pollMessage.react('👎').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
-				pollMessage.react('🤷').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
+		client.channels.get('666245327224832008').send(`> ${dateString}`)
+			.then(async pollMessage=>{
 				watched.push(pollMessage.id);
+				await pollMessage.react('👍').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
+				await pollMessage.react('👎').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
+				await pollMessage.react('🤷').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
 			});
 	}
 }
@@ -21,12 +20,12 @@ let watched = [];
 
 exports.init = (client)=>{
 	client.on('messageReactionAdd', (reaction,user)=>{
-		if (user.id!==/*'213592879480700928'*/'197319892238598144') return;
+		if (user.id!=='213592879480700928') return;
 		if (watched.includes(reaction.message.id) && reaction._emoji.name==='👎')
 			reaction.message.edit(`~~${reaction.message.content}~~`);
 	});
 	client.on('messageReactionRemove', (reaction,user)=>{
-		if (user.id!==/*'213592879480700928'*/'197319892238598144') return;
+		if (user.id!=='213592879480700928') return;
 		if (watched.includes(reaction.message.id) && reaction._emoji.name==='👎')
 			reaction.message.edit(reaction.message.content.replace(/^~~|~~$/g,''));
 	});
