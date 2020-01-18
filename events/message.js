@@ -71,13 +71,12 @@ exports.run = async (client,message) => {
 		users[message.author.id].includes(command) 	|| 
 		(cmd.help.userOverwrite && 
 		(cmd.help.userOverwrite === 'ALL' || cmd.help.userOverwrite.includes(message.author.id)))) {
-
-	} return;
-	message.flags = [];
-	while(args[0] && (args[0][0] === "-" || args[0][0]=== "/")) {
-		message.flags.push(args.shift().slice(1));
+		message.flags = [];
+		while(args[0] && (args[0][0] === "-" || args[0][0]=== "/")) {
+			message.flags.push(args.shift().slice(1));
+		}
+		cmd.run(client,message,args).catch(e=>{console.log(e);});
 	}
-	cmd.run(client,message,args).catch(e=>{console.log(e);});
 }
 
 exports.init = async (client) => {
