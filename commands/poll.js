@@ -12,24 +12,24 @@ exports.run = async (client,message,args)=>{
 				pollMessage.react('👍').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
 				pollMessage.react('👎').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
 				pollMessage.react('🤷').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
-				client.on('messageReactionAdd', (reaction,user)=>{
-					if (user.id!==/*'213592879480700928'*/'197319892238598144') return;
-					if (reaction._emoji.name==='👎')
-						pollMessage.edit(`~~${pollMessage.content}~~`);
-					
-				});
-				client.on('messageReactionRemove', (reaction,user)=>{
-					if (user.id!==/*'213592879480700928'*/'197319892238598144') return;
-					if (reaction._emoji.name==='👎')
-						pollMessage.edit(pollMessage.content.replace(/^~~|~~$/g,''));
-					
-				});
+				watched.push(pollMessage.id);
 			});
 	}
 }
 
+let watched = [];
+
 exports.init = (client)=>{
-	//optional
+	client.on('messageReactionAdd', (reaction,user)=>{
+		if (user.id!==/*'213592879480700928'*/'197319892238598144') return;
+		if (watched.includes(reaction.message.id) && reaction._emoji.name==='👎')
+			reaction.message.edit(`~~${reaction.message.content}~~`);
+	});
+	client.on('messageReactionRemove', (reaction,user)=>{
+		if (user.id!==/*'213592879480700928'*/'197319892238598144') return;
+		if (watched.includes(reaction.message.id) && reaction._emoji.name==='👎')
+			reaction.message.edit(reaction.message.content.replace(/^~~|~~$/g,''));
+	});
 }
 
 exports.conf = {
