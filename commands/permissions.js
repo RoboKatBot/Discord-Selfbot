@@ -18,16 +18,16 @@ exports.run = async (client,message,args)=>{
 	}
 
 	const regex = new RegExp(args[0],'i');
-	let user = [...client.users.filter(u=>regex.exec(u.username))]
-	if (user.length!==1) {
+	const users = [...client.users.filter(u=>regex.exec(u.username))]
+	if (users.length!==1) {
 		message.appendReply(
-			user.length
-			? `This command only supports a single user at a time. Selected users: ${toList.format(user.username)}.`
+			users.length
+			? `This command only supports a single user at a time. Selected users: ${toList.format(users.map(user=>user.username))}.`
 			: `No users match given regex.`
 		);
 		return;
 	}
-	user = user[0];
+	const user = users[0];
 
 	if (!users[user.id])
 		users[user.id] = [];
