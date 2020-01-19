@@ -21,7 +21,7 @@ exports.run = async (client,message,args)=>{
 
 	if (!users[user.id])
 		users[user.id] = [];
-	
+
 	let Δperms = [];
 	let errors = [];
 	switch(op) {
@@ -40,7 +40,7 @@ exports.run = async (client,message,args)=>{
 			});
 			users[user.id] = Δperms;
 			message.appendReply(
-				`Set ${user.displayName} permissons to ${Δperms.length ? toList.format(Δperms) : 'none'}.
+				`Set ${user.username} permissons to ${Δperms.length ? toList.format(Δperms) : 'none'}.
 				${errors.length ? 'Invalid commands: ' + toList.format(errors) : ''}`
 			)
 			saveUsers();
@@ -75,11 +75,7 @@ exports.run = async (client,message,args)=>{
 			});
 			users[user.id] = users[user.id].concat(Δperms);
 			message.appendReply(
-				`Removed ${Δperms.length ? 'the ' + toList.format(Δperms) : 'no'} permissions for ${user.username}}.
-				${errors.length ? 'Invalid commands: ' + toList.format(errors) : ''}`
-			);
-			message.appendReply(
-				`Added ${Δperms.length ? 'the ' + toList.format(Δperms) : 'no'} permissions for ${user.username}}.
+				`Added ${Δperms.length ? 'the ' + toList.format(Δperms) : 'no'} permissions for ${user.username}.
 				${errors.length ? 'Invalid commands: ' + toList.format(errors) : ''}`
 			)
 			saveUsers();
