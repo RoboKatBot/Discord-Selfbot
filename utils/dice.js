@@ -20,13 +20,13 @@ exports.run = async (client,message)=>{
 	const response = [];
 	if (dice.length>1 || dice[0].params[0]>1) {
 		response.push(atoms.map(atom=>{
-			let ret = atom.neg ? ' - ' : ' + ';
+			let ret = atom.neg ? '   -   ' : '   +   ';
 			if (atom.value.length) 
 				ret += '(' + atom.value.map(f=>f.keep?f.val:`~~${f.val}~~`) + ')';
 			else
 				ret += atom.value;
 			return ret;
-		}).join('').slice(3) + ' = ');
+		}).join('').slice(7) + '   =   ');
 	}
 	let total = 0;
 	atoms.forEach(atom=>{
@@ -42,8 +42,8 @@ exports.run = async (client,message)=>{
 	response.push(total);
 	if (dice.length==1&&dice[0].value.filter(f=>f.keep).length===1&&dice[0].params[1]==20) { //if dice roll was a single kept d20 
 		let val = dice[0].value.filter(f=>f.keep)[0].val
-		if (val===20) response.push(' Critical Success!');
-		if (val===1 ) response.push(' Critical Failure!');
+		if (val===20) response.push('   Critical Success!');
+		if (val===1 ) response.push('   Critical Failure!');
 	}
 	exports.send(message,response.join(''));
 };
