@@ -18,7 +18,7 @@ exports.run = async (client,message)=>{
 	});
 	let dice = atoms.filter(atom=>atom.type==='dice')
 	const response = [];
-	if (dice.some(die=>die.params[0]>1)) {
+	if (dice.length>1 || dice[0].params[0]>1) {
 		response.push(atoms.map(atom=>{
 			let ret = atom.neg ? ' - ' : ' + ';
 			if (atom.value.length) 
@@ -32,7 +32,7 @@ exports.run = async (client,message)=>{
 	atoms.forEach(atom=>{
 		let Δ;
 		if (atom.type==='dice') {
-			Δ = atom.value.reduce((a,b)=>a+b.keep?b.val:0,0);//sum all kept dice rolls
+			Δ = atom.value.reduce((a,b)=>a+(b.keep?b.val:0),0);//sum all kept dice rolls
 		}
 		else {
 			Δ = atom.value;
@@ -41,8 +41,9 @@ exports.run = async (client,message)=>{
 	})
 	response.push(total);
 	if (dice.length==1&&dice[0].value.filter(f=>f.keep).length===1&&dice[0].params[1]==20) { //if dice roll was a single kept d20 
-		if (dice[0].value[0]==20) response.push(' Critical Success!');
-		if (dice[0].value[0]==1 ) response.push(' Critical Failure!');
+		let val = dice[0].filter(f=>f.keep)[0].val
+		if (val===20) response.push(' Critical Success!');
+		if (val===1 ) response.push(' Critical Failure!');
 	}
 	exports.send(message,response.join(''));
 };
