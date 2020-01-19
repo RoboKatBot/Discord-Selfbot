@@ -33,7 +33,7 @@ exports.run = async (client,message,args)=>{
 		let Δperms = [];
 		let errors = [];
 		args.forEach(command=>{
-			if (!client.commands[commands] || command === 'ALL') {
+			if (!client.commands[command] || command === 'ALL') {
 				errors.push(command);
 				return;
 			}
@@ -51,7 +51,7 @@ exports.run = async (client,message,args)=>{
 		let Δperms = [];
 		let errors = [];
 		args.forEach(command=>{
-			if (!client.commands[commands] || command === 'ALL') {
+			if (!client.commands[command] || command === 'ALL') {
 				errors.push(command);
 				return;
 			}
@@ -73,7 +73,7 @@ exports.run = async (client,message,args)=>{
 		let Δperms = [];
 		let errors = [];
 		args.forEach(command=>{
-			if (!client.commands[commands] || command === 'ALL') {
+			if (!client.commands[command] || command === 'ALL') {
 				errors.push(command);
 				return;
 			}
