@@ -16,8 +16,8 @@ exports.run = async (client,message,args)=>{
 				await pollMessage.react('👍').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
 				await pollMessage.react('👎').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
 				await pollMessage.react('🤷').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
-	
-	});
+			});
+	}
 	watched.forEach((messageID)=>{ //Purge messages older than 30 days old from watched list.
 		client.channels.get('666245327224832008').fetchMessage(messageID).then(msg=>{
 			if ((now.getTime()-msg.createdAt.getTime())/86400000 > 30) {
@@ -52,6 +52,3 @@ exports.help = {
 	extended:"",
 	userOverwrite:"ALL"
 }
-
-
-
