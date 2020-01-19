@@ -16,7 +16,7 @@ exports.run = async (client,message)=>{
 			return {value:constant,neg,type:'constant'};
 		}
 	});
-	let dice = atoms.filter(atom=>atom.type==='type')
+	let dice = atoms.filter(atom=>atom.type==='dice')
 	const response = [];
 	if (dice.some(die=>die.params[0]>1)) {
 		response.push(atoms.map(atom=>{
@@ -84,10 +84,10 @@ exports.init = async (client) => {
 function roll(n,m,k,lowest) { //returns array of {order,val,keep}
 	let diceArray = [];
 	for (var i = 0; i < n; i++) {
-		diceArray[i] = {order:i,val:Math.ceil(m*Math.random()),keep:false};
+		diceArray[i] = {order:i,val:Math.ceil(m*Math.random()),keep:true};
 	}
 	diceArray.sort((f,g)=>g.val-f.val);
-	if (k) diceArray.slice(...(lowest?[k]:[0,k])).forEach(f=>f.keep=true);
+	if (k) diceArray.slice(...(lowest?[0,k]:[k])).forEach(f=>f.keep=false);
 	diceArray.sort((f,g)=>g.order-f.order);
 	return diceArray;
 }
