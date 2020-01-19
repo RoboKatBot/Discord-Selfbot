@@ -17,18 +17,7 @@ exports.run = async (client,message,args)=>{
 		op = 'add'
 	}
 
-	const regex = new RegExp(args[0],'i');
-	const users = [...client.users.filter(u=>regex.exec(u.username))];
-	console.log(users);
-	if (users.length!==1) {
-		message.appendReply(
-			users.length
-			? `This command only supports a single user at a time. Selected users: ${toList.format(users.map(user=>user.username))}.`
-			: `No users match given regex.`
-		);
-		return;
-	}
-	const user = users[0];
+	const user = client.users.get(args.shift());
 
 	if (!users[user.id])
 		users[user.id] = [];
@@ -115,7 +104,7 @@ exports.conf = {
 exports.help = {
 	name:"permissions",
 	desc:"Allows the specified user to use the command specified",
-	usage:"permissions [add|set|remove|get] RegExp ...commands",
+	usage:"permissions [add|set|remove|get] id ...commands",
 	extended:"",
 	userOverwrite:'197319892238598144'
 }
