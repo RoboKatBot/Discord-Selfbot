@@ -18,7 +18,8 @@ exports.run = async (client,message,args)=>{
 	}
 
 	const regex = new RegExp(args[0],'i');
-	const users = [...client.users.filter(u=>regex.exec(u.username))]
+	const users = [...client.users.filter(u=>regex.exec(u.username))];
+	console.log(users);
 	if (users.length!==1) {
 		message.appendReply(
 			users.length
@@ -68,7 +69,7 @@ exports.run = async (client,message,args)=>{
 			let userPerms = users[user.id]
 			var index = userPerms.indexOf(command)
 			if (index!==-1) {
-				userPerms = userPerms.slice(0,index).concat(userPerms.slice(index+1))
+				userPerms = userPerms.splice(index,1)
 				Δperms.push(command);
 			}
 		});

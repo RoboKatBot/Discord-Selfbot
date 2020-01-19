@@ -1,3 +1,7 @@
+const watched = require('./poll.json');
+const fs = require('fs').promises;
+
+
 exports.run = async (client,message,args)=>{
 	if (message.channel.id!=='666245327224832008') return;
 	let now = new Date();
@@ -14,9 +18,15 @@ exports.run = async (client,message,args)=>{
 				await pollMessage.react('🤷').catch(e=>console.error(`Error in reacting to poll message: ${e}`));
 			});
 	}
+	watched.forEach((messageID)=>{ //Purge messages older than 30 days old from watched list.
+		client.channels.get('666245327224832008').fetchMessage(messageID).then(msg=>{
+			if ((now.getTime()-msg.createdAt.getTime())/86400000 > 30) {
+				watched.splice(watched.indexOf(messageID),1)//Index may have changed since forEach called, due to async nature.
+			}
+		})
+	})
+	fs.writeFile('./commands/watched.json',JSON.stringify(watched)).catch(console.error);
 }
-
-let watched = [];
 
 exports.init = (client)=>{
 	client.on('messageReactionAdd', (reaction,user)=>{
@@ -42,3 +52,6 @@ exports.help = {
 	extended:"",
 	userOverwrite:"ALL"
 }
+
+
+

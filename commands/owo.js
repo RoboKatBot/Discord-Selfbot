@@ -24,7 +24,7 @@ function removeOWO(channelID,userIDs) {
 		let c = store[channelID]
 		var index = c.indexOf(user)
 		if (index!==-1) {
-			c = c.slice(0,index).concat(c.slice(index+1))
+			c = c.splice(index,1)
 			ret.push(user);
 		}
 	});
