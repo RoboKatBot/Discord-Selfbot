@@ -32,13 +32,13 @@ exports.run = async (client,message,args)=>{
 	if (op == 'set') {
 		let Δperms = [];
 		let errors = [];
-		for (command of args) {
+		args.forEach(command=>{
 			if (!client.commands[commands] || command === 'ALL') {
 				errors.push(command);
 				return;
 			}
 			Δperms.push(command);
-		}
+		});
 		users[user.id] = Δperms;
 		message.appendReply(
 			`Set ${user.displayName} permissons to ${Δperms.length ? toList.format(Δperms) : 'none'}.
@@ -50,7 +50,7 @@ exports.run = async (client,message,args)=>{
 	if (op == 'remove') {
 		let Δperms = [];
 		let errors = [];
-		commands.forEach(command=>{
+		args.forEach(command=>{
 			if (!client.commands[commands] || command === 'ALL') {
 				errors.push(command);
 				return;
@@ -72,7 +72,7 @@ exports.run = async (client,message,args)=>{
 	if (op == 'add') { //Default to 'add'
 		let Δperms = [];
 		let errors = [];
-		commands.forEach(command=>{
+		args.forEach(command=>{
 			if (!client.commands[commands] || command === 'ALL') {
 				errors.push(command);
 				return;
