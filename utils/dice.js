@@ -18,7 +18,7 @@ exports.run = async (client,message)=>{
 	});
 	let dice = atoms.filter(atom=>atom.type==='type')
 	const response = [];
-	if (dice.some(die=>die.params[0].length>1)) {
+	if (dice.some(die=>die.params[0]>1)) {
 		response.push(atoms.map(atom=>{
 			let ret = atom.neg ? ' - ' : ' + ';
 			if (atom.value.length) 
@@ -37,7 +37,7 @@ exports.run = async (client,message)=>{
 		else {
 			Δ = atom.value;
 		}
-		total += Δ*atom.neg?-1:1 //negate if needed
+		total += Δ*(atom.neg)?-1:1 //negate if needed
 	})
 	response.push(total);
 	if (dice.length==1&&dice[0].value.filter(f=>f.keep).length===1&&dice[0].params[1]==20) { //if dice roll was a single kept d20 
