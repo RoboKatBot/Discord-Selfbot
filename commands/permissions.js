@@ -59,7 +59,7 @@ exports.run = async (client,message,args)=>{
 				}
 			});
 			message.appendReply(
-				`Removed ${Δperms.length ? 'the ' + toList.format(Δperms) : 'no'} permissions for ${user.username}}.
+				`Removed ${Δperms.length ? 'the ' + toList.format(Δperms) : 'no'} permissions for ${user.username}.
 				${errors.length ? 'Invalid commands: ' + toList.format(errors) : ''}`
 			);
 			saveUsers();
@@ -92,7 +92,7 @@ exports.conf = {
 
 exports.help = {
 	name:"permissions",
-	desc:"Allows the specified user to use the command specified",
+	desc:"Allows the specified user to use the command specified (Most commands do not currently work for other users).",
 	usage:"permissions [add|set|remove|get] id ...commands",
 	extended:"",
 	userOverwrite:'197319892238598144'

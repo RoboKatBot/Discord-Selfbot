@@ -54,7 +54,7 @@ exports.run = async (client,message) => {
 
 	//////////////////////Dice Bot /////////////////////////////////////
 
-	if(message.channel.id === '666257084941074442' && message.content.match(/^[\\\/]r/)) {
+	if(['349488875561025536','666257084941074442'].includes(message.channel.id) && message.content.match(/^[\\\/]r/)) {//Dice only works in session-chat or tetst channel
 		dice.run(client,message);
 	}
 
