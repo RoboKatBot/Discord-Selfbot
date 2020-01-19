@@ -44,13 +44,13 @@ exports.run = async (client,message)=>{
 		if (dice[0].value[0]==20) response.push(' Critical Success!');
 		if (dice[0].value[0]==1 ) response.push(' Critical Failure!');
 	}
-	exports.send(response.join(''));
+	exports.send(message,response.join(''));
 };
 
 
 
 exports.init = async (client) => {
-	exports.send = (content) => {
+	exports.send = (message,content) => {
 		if (message.channel.id==='666236320745652224') {
 			const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
 				.then(webhooks=>webhooks.filter(webhook=>webhook.channelID=='666257084941074442').first())
