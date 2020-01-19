@@ -21,7 +21,9 @@ exports.run = async (client,message,args)=>{
 
 	if (!users[user.id])
 		users[user.id] = [];
-
+	
+	let Δperms = [];
+	let errors = [];
 	switch(op) {
 		case 'get':
 			message.appendReply(
@@ -29,8 +31,6 @@ exports.run = async (client,message,args)=>{
 			);
 			break;
 		case 'set':
-			let Δperms = [];
-			let errors = [];
 			args.forEach(command=>{
 				if (!client.commands[command] || command === 'ALL') {
 					errors.push(command);
@@ -46,8 +46,6 @@ exports.run = async (client,message,args)=>{
 			saveUsers();
 			break;
 		case 'remove':
-			let Δperms = [];
-			let errors = [];
 			args.forEach(command=>{
 				if (!client.commands[command] || command === 'ALL') {
 					errors.push(command);
@@ -67,8 +65,6 @@ exports.run = async (client,message,args)=>{
 			saveUsers();
 			break;
 		default: //add
-			let Δperms = [];
-			let errors = [];
 			args.forEach(command=>{
 				if (!client.commands[command] || command === 'ALL') {
 					errors.push(command);
