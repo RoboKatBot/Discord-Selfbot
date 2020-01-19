@@ -41,7 +41,7 @@ exports.run = async (client,message)=>{
 	})
 	response.push(total);
 	if (dice.length==1&&dice[0].value.filter(f=>f.keep).length===1&&dice[0].params[1]==20) { //if dice roll was a single kept d20 
-		let val = dice[0].filter(f=>f.keep)[0].val
+		let val = dice[0].value.filter(f=>f.keep)[0].val
 		if (val===20) response.push(' Critical Success!');
 		if (val===1 ) response.push(' Critical Failure!');
 	}
