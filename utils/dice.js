@@ -45,40 +45,25 @@ exports.run = async (client,message)=>{
 		if (val===20) response.push('   Critical Success!');
 		if (val===1 ) response.push('   Critical Failure!');
 	}
-	exports.send(message,response.join(''));
+	send(client,message,response.join(''));
 };
 
+function send(client,message,content) {
+	if (message.channel.id=='666236320745652224') {
+		const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
+			.then(webhooks=>webhooks.filter(webhook=>webhook.channelID=='666257084941074442').first())
 
+		webhook.then(webhook=>webhook.send(content,{
+				avatarURL:'https://cdn.discordapp.com/attachments/349488875561025536/666277457564794900/unknown.png',
+				username:'DiceGuy'
+			}));
+	}
+	else {
+		message.channel.send(content);
+	}
+}
 
 exports.init = async (client) => {
-	exports.send = (message,content) => {
-		if (message.channel.id==='666236320745652224') {
-			const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
-				.then(webhooks=>webhooks.filter(webhook=>webhook.channelID=='666257084941074442').first())
-
-			webhook.then(webhook=>webhook.send(content,{
-					avatarURL:'https://cdn.discordapp.com/attachments/349488875561025536/666277457564794900/unknown.png',
-					username:'DiceGuy'
-				}));
-		}
-		else {
-			message.channel.send(content);
-		}
-		/*https.request({
-				host:"discordapp.com",
-				path:config.DiceChannel,
-				method:"POST",
-				headers:{
-					"Content-Type":"multipart/form-data"
-				}
-			}
-		).end(JSON.stringify({
-			content:content,
-			avatar_url:'https://cdn.discordapp.com/attachments/349488875561025536/666277457564794900/unknown.png',
-			username:'DiceGuy'
-		}));*/
-
-	}
 }
 
 
