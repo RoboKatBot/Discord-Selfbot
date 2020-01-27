@@ -5,7 +5,7 @@ exports.run = async (client,message)=>{
 	const content =  message.content.slice(2);
 	let atoms = content.replace('-','+-').split('+');
 	atoms = atoms.map(atom=>{
-		const dice = atom.match(/(\d*)d(\d+)k?(l?)(\d*)/);
+		const dice = atom.match(/(\d{0,4})d(\d+)k?(l?)(\d*)/);
 		const neg = (atom.match(/\-/g)||[]).length&1;
 		if (dice) {
 			params = [parseInt(dice[1])||1,parseInt(dice[2]),parseInt(dice[4]),Boolean(dice[3])];
@@ -18,7 +18,7 @@ exports.run = async (client,message)=>{
 	});
 	let dice = atoms.filter(atom=>atom.type==='dice')
 	const response = [];
-	if (dice.length>1 || dice[0].params[0]>1) {
+	if (dice.length>1 || (dice&&dice[0].params[0]>1)) {
 		response.push(atoms.map(atom=>{
 			let ret = atom.neg ? '   -   ' : '   +   ';
 			if (atom.value.length) 
