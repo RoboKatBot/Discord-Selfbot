@@ -49,7 +49,8 @@ exports.run = async (client,message)=>{
 };
 
 function send(client,message,content) {
-	if (message.channel.id=='666236320745652224') {
+	console.log(message.channel.id)
+	if (message.channel.id=='666257084941074442') {
 		const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
 			.then(webhooks=>webhooks.filter(webhook=>webhook.channelID=='666257084941074442').first())
 
