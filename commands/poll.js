@@ -10,6 +10,7 @@ exports.run = async (client,message,args)=>{
 	for (let i = 1; i <= range;i++) {
 		then.setDate(now.getDate() + i);
 		let dateString = then.toDateString();
+		then.setTime(now.getTime());
 		client.channels.get('666245327224832008').send(`> ${dateString}`)
 			.then(async pollMessage=>{
 				watched.push(pollMessage.id);
