@@ -8,9 +8,8 @@ exports.run = async (client,message,args)=>{
 	let then = new Date();
 	let range = parseInt(args[0])||7;
 	for (let i = 1; i <= range;i++) {
-		then.setDate(now.getDate() + i);
+		then.setTime(now.getTime() + i*86400000);
 		let dateString = then.toDateString();
-		then.setTime(now.getTime());
 		client.channels.get('666245327224832008').send(`> ${dateString}`)
 			.then(async pollMessage=>{
 				watched.push(pollMessage.id);
