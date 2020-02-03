@@ -1,6 +1,6 @@
 var users = [];
 var reason = '';
-const AndList = new Intl.ListFormat();
+const toList = new Intl.ListFormat();
 
 
 exports.init = async (client)=>{
@@ -40,8 +40,8 @@ exports.run = async (client,message,args)=>{
 	users = muted;
 
 	const reply = [
-	muted.length ? `Muted ${AndList(muted.map(u=>u.displayName))} for ${reason}` : '',
-	unmuted.length ? `Unmuted ${AndList(unmuted.map(u=>u.displayName))}` : ''
+	muted.length ? `Muted ${toList.format(muted.map(u=>u.displayName))} for ${reason}` : '',
+	unmuted.length ? `Unmuted ${toList.format(unmuted.map(u=>u.displayName))}` : ''
 	].join('\n');
 
 
