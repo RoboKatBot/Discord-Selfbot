@@ -9,7 +9,7 @@ exports.init = async (client)=>{
 		if (!users.map(u=>u.user).includes(m.author)) return;
 		m.delete();
 	});
-	client.on('voiceStateUpdate',(_,user)=>{
+	client.on('voiceStateUpdate',(_,user)=>{cd bin
 		if (!users.includes(user)) return;
 		user.setMute(true,reason);
 	});
