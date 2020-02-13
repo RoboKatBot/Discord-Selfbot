@@ -5,11 +5,13 @@ exports.run = async (client,message)=>{
 	const content =  message.content.slice(2);
 	let atoms = content.replace('-','+-').split('+');
 	atoms = atoms.map(atom=>{
-		const dice = atom.match(/(\d{0,4})d(\d+)k?(l?)(\d*)/);
+		const dice = atom.match(/(\d{0,4})d(\d+)k?(l?)(\d*)(L?)/);
 		const neg = (atom.match(/\-/g)||[]).length&1;
 		if (dice) {
-			params = [parseInt(dice[1])||1,parseInt(dice[2]),parseInt(dice[4]),Boolean(dice[3])];
-			return {value:roll(...params),params,neg,type:'dice'};
+			params = {dieNo:+dice[1]||1, dieVal: +dice[2], keep: +dice[4], lowest: !!dice[3], lucky: !!dice[5]};
+			if (message.author.id === client.user.id)
+				params[1].lucky = true;
+			return {value:roll(params), ...params, neg, type:'dice'};
 		}
 		else {
 			const constant = parseInt(atom.match(/\d+/))
@@ -18,7 +20,7 @@ exports.run = async (client,message)=>{
 	});
 	let dice = atoms.filter(atom=>atom.type==='dice')
 	const response = [];
-	if (dice.length>1 || (dice&&dice[0].params[0]>1)) {
+	if (dice.length>1 || (dice&&dice[0].diceNo>1)) {
 		response.push(atoms.map(atom=>{
 			let ret = atom.neg ? '   -   ' : '   +   ';
 			if (atom.value.length) 
@@ -40,7 +42,7 @@ exports.run = async (client,message)=>{
 		total += Δ*(atom.neg?-1:1) //negate if needed
 	})
 	response.push(total);
-	if (dice.length==1&&dice[0].value.filter(f=>f.keep).length===1&&dice[0].params[1]==20) { //if dice roll was a single kept d20 
+	if (dice.length==1&&dice[0].value.filter(f=>f.keep).length===1&&dice[0].diceVal==20) { //if dice roll was a single kept d20 
 		let val = dice[0].value.filter(f=>f.keep)[0].val
 		if (val===20) response.push('   Critical Success!');
 		if (val===1 ) response.push('   Critical Failure!');
@@ -68,13 +70,16 @@ exports.init = async (client) => {
 }
 
 
-function roll(n,m,k,lowest) { //returns array of {order,val,keep}
+function roll({diceNo, dieVal, keep, lowest, lucky}) { //returns array of {order,val,keep}
 	let diceArray = [];
-	for (var i = 0; i < n; i++) {
-		diceArray[i] = {order:i,val:Math.ceil(m*Math.random()),keep:true};
+	for (var i = 0; i < diceNo; i++) {
+		var val = die(dieVal);
+		if (dieVal === 20 && lucky && val === 1)
+			val = die(dieVal);
+		diceArray[i] = {order:i,val:die(m),keep:true};
 	}
 	diceArray.sort((f,g)=>g.val-f.val);
-	if (k) diceArray.slice(...(lowest?[0,k]:[k])).forEach(f=>f.keep=false);
+	if (keep) diceArray.slice(...(lowest?[0,keep]:[keep])).forEach(f=>f.keep=false);
 	diceArray.sort((f,g)=>g.order-f.order);
 	return diceArray;
 }
