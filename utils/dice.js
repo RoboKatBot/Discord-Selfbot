@@ -51,7 +51,6 @@ exports.run = async (client,message)=>{
 };
 
 function send(client,message,content) {
-	console.log(message.channel.id)
 	if (message.channel.id=='666257084941074442') {
 		const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
 			.then(webhooks=>webhooks.filter(webhook=>webhook.channelID=='666257084941074442').first())
@@ -78,7 +77,7 @@ function roll({diceNo, diceVal, keep, lowest, lucky}) { //returns array of {orde
 			val = die(diceVal);
 		diceArray[i] = {order:i, val, keep:true};
 	}
-	diceArray.sort((f,g)=>(g.val-f.val)*lowest?-1:1);
+	diceArray.sort((f,g)=>(g.val-f.val)*(lowest?-1:1));
 	if (keep) diceArray.slice(keep).forEach(f=>f.keep=false);
 	diceArray.sort((f,g)=>g.order-f.order);
 	return diceArray;
