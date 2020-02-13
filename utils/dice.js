@@ -46,13 +46,13 @@ exports.run = async (client,message)=>{
 		let val = dice[0].value.filter(f=>f.keep)[0].val
 		if (val===20) response.push('   Critical Success!');
 		if (val===1 ) response.push('   Critical Failure!');
-		if (val===1 && dice.diceNo==2 && !dice.lowest)
+		if (val===1 && dice.diceNo>1 && !dice.lowest)
 			return send(client,message,response.join(''), {username: 'No more Mr DiceGuy!'});
 	}
 	send(client,message,response.join(''));
 };
 
-function send(client, message, content, {username='DiceGuy'}) {
+function send(client, message, content, {username='DiceGuy'}={}) {
 	if (message.channel.id=='666257084941074442') {
 		const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
 			.then(webhooks=>webhooks.filter(webhook=>webhook.channelID=='666257084941074442').first())
