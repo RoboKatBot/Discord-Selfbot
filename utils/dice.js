@@ -76,7 +76,7 @@ function roll({diceNo, dieVal, keep, lowest, lucky}) { //returns array of {order
 		var val = die(dieVal);
 		if (dieVal === 20 && lucky && val === 1)
 			val = die(dieVal);
-		diceArray[i] = {order:i,val:die(m),keep:true};
+		diceArray[i] = {order:i,val,keep:true};
 	}
 	diceArray.sort((f,g)=>g.val-f.val);
 	if (keep) diceArray.slice(...(lowest?[0,keep]:[keep])).forEach(f=>f.keep=false);
