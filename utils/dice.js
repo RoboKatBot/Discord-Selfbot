@@ -8,7 +8,7 @@ exports.run = async (client,message)=>{
 		const dice = atom.match(/(\d{0,4})d(\d+)k?(l?)(\d*)(L?)/);
 		const neg = (atom.match(/\-/g)||[]).length&1;
 		if (dice) {
-			params = {dieNo:+dice[1]||1, dieVal: +dice[2], keep: +dice[4], lowest: !!dice[3], lucky: !!dice[5]};
+			params = {diceNo:+dice[1]||1, diceVal: +dice[2], keep: +dice[4], lowest: !!dice[3], lucky: !!dice[5]};
 			if (message.author.id === client.user.id)
 				params.lucky = true;
 			return {value:roll(params), ...params, neg, type:'dice'};
@@ -70,12 +70,12 @@ exports.init = async (client) => {
 }
 
 
-function roll({diceNo, dieVal, keep, lowest, lucky}) { //returns array of {order,val,keep}
+function roll({diceNo, diceVal, keep, lowest, lucky}) { //returns array of {order,val,keep}
 	let diceArray = [];
 	for (var i = 0; i < diceNo; i++) {
-		var val = die(dieVal);
-		if (dieVal === 20 && lucky && val === 1)
-			val = die(dieVal);
+		var val = die(diceVal);
+		if (diceVal === 20 && lucky && val === 1)
+			val = die(diceVal);
 		diceArray[i] = {order:i, val, keep:true};
 	}
 	diceArray.sort((f,g)=>g.val-f.val);
