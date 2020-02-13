@@ -10,7 +10,7 @@ exports.run = async (client,message)=>{
 		if (dice) {
 			params = {dieNo:+dice[1]||1, dieVal: +dice[2], keep: +dice[4], lowest: !!dice[3], lucky: !!dice[5]};
 			if (message.author.id === client.user.id)
-				params[1].lucky = true;
+				params.lucky = true;
 			return {value:roll(params), ...params, neg, type:'dice'};
 		}
 		else {
