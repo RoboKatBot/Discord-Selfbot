@@ -46,18 +46,20 @@ exports.run = async (client,message)=>{
 		let val = dice[0].value.filter(f=>f.keep)[0].val
 		if (val===20) response.push('   Critical Success!');
 		if (val===1 ) response.push('   Critical Failure!');
+		if (val===1 && dice.diceNo==2 && !dice.lowest)
+			return send(client,message,response.join(''), {username: 'No more Mr DiceGuy!'});
 	}
 	send(client,message,response.join(''));
 };
 
-function send(client,message,content) {
+function send(client, message, content, {username='DiceGuy'}) {
 	if (message.channel.id=='666257084941074442') {
 		const webhook = client.guilds.get('666236320745652224').fetchWebhooks()
 			.then(webhooks=>webhooks.filter(webhook=>webhook.channelID=='666257084941074442').first())
 
 		webhook.then(webhook=>webhook.send(content,{
 				avatarURL:'https://cdn.discordapp.com/attachments/349488875561025536/666277457564794900/unknown.png',
-				username:'DiceGuy'
+				username
 			}));
 	}
 	else {
