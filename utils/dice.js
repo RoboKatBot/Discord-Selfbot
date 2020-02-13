@@ -78,8 +78,8 @@ function roll({diceNo, diceVal, keep, lowest, lucky}) { //returns array of {orde
 			val = die(diceVal);
 		diceArray[i] = {order:i, val, keep:true};
 	}
-	diceArray.sort((f,g)=>g.val-f.val);
-	if (keep) diceArray.slice(...(lowest?[0,keep]:[keep])).forEach(f=>f.keep=false);
+	diceArray.sort((f,g)=>(g.val-f.val)*lowest?-1:1);
+	if (keep) diceArray.slice(keep).forEach(f=>f.keep=false);
 	diceArray.sort((f,g)=>g.order-f.order);
 	return diceArray;
 }
