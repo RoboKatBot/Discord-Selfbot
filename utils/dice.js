@@ -20,7 +20,7 @@ exports.run = async (client,message)=>{
 	});
 	let dice = atoms.filter(atom=>atom.type==='dice')
 	const response = [];
-	if (dice.length>1 || (dice&&dice[0].diceNo>1)) {
+	if (dice.length>1 || (dice[0]&&dice[0].diceNo>1)) {
 		response.push(atoms.map(atom=>{
 			let ret = atom.neg ? '   -   ' : '   +   ';
 			if (atom.value.length) 
