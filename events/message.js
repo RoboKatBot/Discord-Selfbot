@@ -9,7 +9,7 @@ const dice = require('../utils/dice.js');
 
 
 exports.run = async (client,message) => {
-	if(message.channel.type === "dm" && message.author !== client.user && message.author.id !=='341534945304379392' && message.author.id!=='380224572231778304' && message.author.id!=='559186351635824651') {
+	if(message.channel.type === "dm" && message.author !== client.user && message.author.id !=='341534945304379392' && message.author.id!=='380224572231778304' && message.author.id!=='559186351635824651' && !client.cb) {
 		https.request({
 				host:"discordapp.com",
 				path:config.DM,
