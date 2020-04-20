@@ -15,7 +15,7 @@ exports.run = async (client,message) => {
 				path:config.DM,
 				method:"POST",
 				headers:{
-					"Content-Type":"multipart/form-data"
+					"Content-Type":"application/json"
 				}
 			}	
 		).end(JSON.stringify({

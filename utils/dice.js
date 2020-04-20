@@ -88,3 +88,37 @@ function roll({diceNo, diceVal, keep, lowest, lucky}) { //returns array of {orde
 function die(n) {
 	return Math.ceil(n*Math.random());
 }
+
+class instance {
+	constructor(message) {
+		this.message = message;
+		message.content = message.content.slice(2);
+
+	}
+	send() {
+
+	}
+}
+
+
+function atomize() {
+	let parse1 = content.replace('-','+-').replace('/','*/');
+	atoms = atoms.map(atom=>{
+		const dice = atom.match(/(\d{0,4})d(\d+)k?(l?)(\d*)(L?)/);
+		const neg = (atom.match(/\-/g)||[]).length&1;
+		if (dice) {
+			params = {diceNo:+dice[1]||1, diceVal: +dice[2], keep: +dice[4], lowest: !!dice[3], lucky: !!dice[5]};
+			if (message.author.id === client.user.id)
+				params.lucky = true;
+			return {value:roll(params), ...params, neg, type:'dice'};
+		}
+		else {
+			const constant = parseInt(atom.match(/\d+/))
+			return {value:constant,neg,type:'constant'};
+		}
+	});
+}
+
+function parse(content) {
+	
+}
